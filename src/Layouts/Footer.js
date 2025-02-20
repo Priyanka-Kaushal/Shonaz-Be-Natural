@@ -1,7 +1,8 @@
+import React from "react";
 import { Box, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
-const Footer = () => {
+const FooterComponent = () => {
   return (
     <Box
       className="footerMainContainer"
@@ -16,19 +17,27 @@ const Footer = () => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+        padding: "20px 0px 0px 0px",
+        "@media (max-width: 600px)": {
+          gap: 2,
+          height: "auto",
+          padding: "10px 0",
+        },
       }}
     >
+      {/* First Box: Links */}
       <Box
+      className = 'footerSecOne'
         sx={{
           display: "flex",
           gap: 2,
-          justifycontent: "center",
+          justifyContent: "center",
           alignItems: "center",
+          flexWrap: "wrap", // Wrap links in smaller screens
+          fontSize: { xs: '1rem', sm: '1.5rem', md: '2rem' },
         }}
       >
-        {/* <TextField placeholder="Email" fullWidth sx={{ mb: 1 }} /> */}
-
-        <Typography
+        <Typography className = 'footerSecOne'
           style={{
             color: "black",
             cursor: "pointer",
@@ -38,7 +47,7 @@ const Footer = () => {
         >
           CONTACT
         </Typography>
-        <Typography
+        <Typography className = 'footerSecOne'
           style={{
             color: "black",
             cursor: "pointer",
@@ -46,9 +55,9 @@ const Footer = () => {
             fontSize: "14px",
           }}
         >
-          CUSTOMER SERVICE{" "}
+          CUSTOMER SERVICE
         </Typography>
-        <Typography
+        <Typography className = 'footerSecOne'
           style={{
             color: "black",
             cursor: "pointer",
@@ -58,7 +67,7 @@ const Footer = () => {
         >
           ECOLOGI
         </Typography>
-        <Typography
+        <Typography className = 'footerSecOne'
           style={{
             color: "black",
             cursor: "pointer",
@@ -68,7 +77,7 @@ const Footer = () => {
         >
           FIND STORE
         </Typography>
-        <Typography
+        <Typography className = 'footerSecOne'
           style={{
             color: "black",
             cursor: "pointer",
@@ -80,22 +89,41 @@ const Footer = () => {
         </Typography>
       </Box>
 
+      {/* Second Box: Social Links and Footer Info */}
       <Box
-        className="secondContatiner"
+        className="secFootersec footerSecOne"
         sx={{
-          position: "fixed",
+          position: "static",
           bottom: 0,
           width: "100%",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
           padding: 2,
-          backgroundColor: "transparent",
+          backgroundColor: "white",
           boxShadow: "none",
+          flexDirection: {
+            xs: "column", // For smaller screens, stack items vertically
+            sm: "row", // For larger screens, use row layout
+          },
+          gap: 2,
         }}
       >
-        <Box sx={{ display: "flex", gap: 2 }}>
+        {/* Social Links */}
+        <Box  
+        className="secFootersec footerSecOne"
+          sx={{
+            display: "flex",
+            gap: 2,
+            justifyContent: {
+              xs: "center", 
+              sm: "flex-start",
+            },
+            flexWrap: "wrap", // Wrap links in smaller screens
+          }}
+        >
           <a
+          className="secFootersec footerSecOne"
             href="https://www.facebook.com/shonazBeNatural/"
             target="_blank"
             rel="noopener noreferrer"
@@ -109,6 +137,7 @@ const Footer = () => {
             FACEBOOK
           </a>
           <a
+          className="secFootersec footerSecOne"
             href="https://www.instagram.com/shonazbenatural/"
             target="_blank"
             rel="noopener noreferrer"
@@ -121,7 +150,8 @@ const Footer = () => {
           >
             INSTAGRAM
           </a>
-          <a
+          <a 
+          className="secFootersec footerSecOne"
             href="https://www.amazon.in/SHONAZ-BENATURAL-Organic-Cotton-Natural/dp/B0CQVCBRBT"
             target="_blank"
             rel="noopener noreferrer"
@@ -136,8 +166,10 @@ const Footer = () => {
           </a>
         </Box>
 
+        {/* Copyright Info */}
         <Link
-        to="/"
+          to="/"
+          className="secFootersec footerSecOne"
           style={{
             color: "black",
             cursor: "pointer",
@@ -148,8 +180,22 @@ const Footer = () => {
           © 2024 Copyright: All Rights Reserved.
         </Link>
 
-        <Box sx={{ display: "flex", gap: 2, paddingInline: 4 }}>
+        {/* Privacy and Terms */}
+        <Box
+        className="secFootersec footerSecOne"
+          sx={{
+            display: "flex",
+            gap: 2,
+            paddingInline: 4,
+            justifyContent: {
+              xs: "center", // Center on smaller screens
+              sm: "flex-end",
+            },
+            flexWrap: "wrap", // Wrap links for smaller screens
+          }}
+        >
           <Link
+          className="secFootersec footerSecOne"
             to="/terms-of-service"
             style={{
               color: "black",
@@ -158,10 +204,11 @@ const Footer = () => {
               fontSize: "14px",
             }}
           >
-              PRIVACY POLICY
+            PRIVACY POLICY
           </Link>
           <Link
             to="/privacy-policy"
+            
             style={{
               color: "black",
               cursor: "pointer",
@@ -169,7 +216,7 @@ const Footer = () => {
               fontSize: "14px",
             }}
           >
-           TERMS OF USE
+            TERMS OF USE
           </Link>
         </Box>
       </Box>
@@ -177,4 +224,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default FooterComponent;

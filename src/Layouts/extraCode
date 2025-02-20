@@ -14,7 +14,6 @@ import SearchPage from "../Layouts/SearchPage";
 import { useMediaQuery } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
-
 const Navbar = () => {
   const isMobile = useMediaQuery("(max-width: 600px)");
   const [openSearchModal, setOpenSearchModal] = useState(false);
@@ -274,7 +273,7 @@ const Navbar = () => {
             {!isMobile && ( // Only render on larger screens
               <Link
                 to="/account/login"
-                style={{
+                style= {{
                   color: "black",
                   textDecoration: "none",
                   fontWeight: "bold",

@@ -9,6 +9,8 @@ import CreateAccount from "./auth/SignUp";
 import ForgotPassword from './auth/ForgotPassword';
 import Footer from "./Layouts/Footer";
 import NewArrivals from './collections/NewArrivals';
+import SearchPage from './Layouts/SearchPage';
+import SHOPACCESSORIES from './collections/SHOPACCESSORIES';
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} /> {/* Home page route */}
           <Route path="/shop/new-arrivals" element={<NewArrivals />} />
+          <Route path = "/" element = {<SearchPage />} />
+          <Route path = "./SHOPACCESSORIES" element = {<SHOPACCESSORIES />} />
           <Route path="/account/login" element={<LoginUser />} />
           <Route path="/account/register" element={<CreateAccount />} />
           <Route path="/account/forgotPassword" element={<ForgotPassword />} />
