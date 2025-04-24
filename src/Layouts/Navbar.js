@@ -14,6 +14,11 @@ import SearchPage from "../Layouts/SearchPage";
 import { useMediaQuery } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
+const style = {
+  backgroundColor: 'transparent',
+  pointerEvents: 'none',
+};
+
 
 const Navbar = () => {
   const isMobile = useMediaQuery("(max-width: 600px)");
@@ -57,8 +62,8 @@ const Navbar = () => {
         "@media (max-width: 600px)": {
           gap: 2,
           height: "auto",
-          zIndex: 2,
-          opacity: 0.5,
+          zIndex: 1301,
+          // opacity: 0.5,
           position: "relative",
         },
       }}
@@ -80,12 +85,14 @@ const Navbar = () => {
         </>
       ) : (
         <>
-          {/* Left Drawer (Shop, New, Collection) */}
-          <Link
-            to="/shop"
-            style={{ display: "block", padding: "20px 60px 0px 60px" }}
+
+        <div className="transparent" component = "leftDrawer" sx = {style}>
+         {/* Left Drawer (Shop, New, Collection) */}
+         <Link
+            to="/newCollll"
+            style={{ display: "block", padding: "20px 60px 0px 60px", pointerEvents: "auto"}}
           >
-            SHOP
+            Newwwwwwwwwwwww
           </Link>
           <Link
             to="/new"
@@ -99,6 +106,8 @@ const Navbar = () => {
           >
             COLLECTION
           </Link>
+        </div>
+          
         </>
       )}
     </Box>

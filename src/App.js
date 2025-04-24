@@ -11,9 +11,9 @@ import Footer from "./Layouts/Footer";
 import NewArrivals from './collections/NewArrivals';
 import SearchPage from './Layouts/SearchPage';
 import SHOPACCESSORIES from './collections/SHOPACCESSORIES';
-import Threshold from  "./Components/Admin/admin"
 // import EditProduct from "./Components/Admin/EditProducts";
 // import ManageProduct from "./Components/Admin/ManageProducts"
+import CreateProducts from "./Components/Admin/createProduct.tsx";
 
 function App() {
   return (
@@ -29,7 +29,7 @@ function App() {
           <Route path="/account/login" element={<LoginUser />} />
           <Route path="/account/register" element={<CreateAccount />} />
           <Route path="/account/forgotPassword" element={<ForgotPassword />} />
-          <Route  path = "/add-products" element = {<Threshold />} />
+          <Route  path = "/add-products-new" element = {<CreateProducts />} />
         </Routes>
         <Footer />
       </Router>

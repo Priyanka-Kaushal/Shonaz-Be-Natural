@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Input, Modal } from "@mui/material";
 import ModalClose from '@mui/joy/ModalClose';
-import { useMediaQuery } from "@mui/material";
+// import { useMediaQuery } from "@mui/material";
 
 
 const style = {
@@ -23,7 +23,7 @@ const style = {
 
 const SearchPage = ({ open, handleClose }) => {
   const [searchProduct, setSearchProduct] = React.useState("");
-  const isMobile = useMediaQuery("(max-width: 600px)");
+  // const isMobile = useMediaQuery("(max-width: 600px)");
 
   const handleOnSearch = (event) => {
     setSearchProduct(event.target.value);
