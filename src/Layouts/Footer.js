@@ -8,7 +8,7 @@ const FooterComponent = () => {
     className="footerMainContainer"
     sx={{
       background: "#edffc0",
-      position: "sticky",
+      position: "absolute",
       left: "0",  // No semicolon here
       bottom: "0",
       width: "100%",
