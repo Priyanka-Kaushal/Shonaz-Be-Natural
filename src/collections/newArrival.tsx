@@ -1,54 +1,69 @@
-import { Typography, Box, Card, CardMedia, CardContent, CardActionArea, Link } from "@mui/material";
-import React from "react";
-// Assuming you have the correct path to your product data file
-import productsDescription, { Product } from "../../src/Assets/DataFiles/productDescription.tsx";
+import React, { useState } from "react";
+import { Typography, Modal, Box } from "@mui/material";
 import BreadcrumbsNav from "../helper/bredacrumbNavigation.tsx";
+import ProductCardList from "../collections/prodComponent.tsx";
+import productsDescription from "../Assets/DataFiles/productDescription.ts";
+import ProductOverview from "../Layouts/productOverview.tsx";
 
+const addTocartStyle = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 800,
+  bgcolor: "background.paper",
+  boxShadow: 24,
+  p: 4,
+  borderRadius: "12px",
+};
 
 const NewArrivals: React.FC = () => {
-  return (
-    <> 
-    <div>
-    <BreadcrumbsNav /> 
-    </div>
-       
-       <div>
-       <Typography variant="h4" gutterBottom sx ={{ml: "20px", mt: "20px"}}>New Arrivals</Typography>
-       </div>
-      
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<any | null>(null);
+  
 
-      <Box
-        display="flex"
-        flexWrap="wrap"
-        justifyContent="center"
-        gap={2}
-        mt={3}
+
+  const handlePreviewOpen = (product: any) => {
+    setSelectedProduct(product);
+    setPreviewOpen(true);
+  };
+
+  const handlePreviewClose = () => {
+    setSelectedProduct(null);
+    setPreviewOpen(false);
+  };
+
+  
+
+  return (
+    <>
+      <BreadcrumbsNav />
+
+      <Typography variant="h4" gutterBottom sx={{ ml: "20px", mt: "20px" }}>
+        New Arrivals
+      </Typography>
+
+      <ProductCardList
+        productsDescription={productsDescription}
+        onClick={handlePreviewOpen} 
+      />
+
+      <Modal
+        open={previewOpen}
+        onClose={handlePreviewClose}
+        sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
       >
-        {productsDescription.map((product: Product) => (
-          <Card key={product.id} sx={{ width: 280 }}>
-            <CardActionArea component={Link} to={`/product/${product.id}`}>
-              <CardMedia
-                component="img"
-                height="180"
-                image={product.image[0]} // Accessing the first image if it's an array
-                alt={product.productName}
-              />
-              <CardContent>
-                <Typography variant="h6">{product.productName}</Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {product.description}
-                </Typography>
-                <Typography variant="subtitle1" color="text.primary">
-                  ₹{product.price}
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-          </Card>
-        ))}
-      </Box>
+        <Box sx={addTocartStyle}>
+          {selectedProduct && (
+            <ProductOverview
+              product={selectedProduct}
+              onClose={handlePreviewClose}
+            />
+          )}
+        </Box>
+      </Modal>
     </>
   );
 };
 
 export default NewArrivals;
-

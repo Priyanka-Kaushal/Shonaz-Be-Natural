@@ -1,0 +1,84 @@
+:root {
+    --h1: 40px;
+    --h2: 32px;
+    --h3: 28px;
+    --h4: 24px;
+    --h5: 20px;
+    --h6: 16 px;
+  
+    --label: 16px;
+    --ls: 5px;
+  
+    --background-color: rgb(248, 247, 247);
+    --font-color: rgb(0, 0, 0);
+  }
+  
+  .mainSec {
+    padding: 2px 20px 2px 20px;
+    width: 400px;
+    margin-top: 10px 20px 10px 40px;
+    border-radius: 5px; 
+    background-color: aliceblue;
+    padding: 2px 2px auto;
+  }
+  
+  .listItemsProd{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    flex-direction: row;
+    box-sizing: border-box;
+  }
+  
+  .cards {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .card {
+    flex: 1 0 500px;
+    box-sizing: border-box;
+    margin: 1rem 0.25em;
+  }
+  
+  img {
+    display: block;
+    border: 0;
+    width: 100%;
+    height: 40%;
+    padding: 2px 4px 2px 4px;
+  
+  
+    border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 5px;
+  }
+  
+  .catName{
+    margin-top: 10px;
+    padding: 10px;
+    margin-bottom: 0.5em;
+    font-weight: bold;
+  }
+  
+  .prodName  h2 {
+    color: var(--font-color);
+  }
+  
+  .container p {
+    margin-top: 0;
+    margin-bottom: 2px;
+  }
+  
+  
+  div.right-align
+  {
+      width:45%;
+      float:right;
+  }
+  
+  div.left-align
+  {
+      width:45%;
+      float:left;
+  }

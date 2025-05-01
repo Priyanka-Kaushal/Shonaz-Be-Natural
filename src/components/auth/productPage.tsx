@@ -8,9 +8,9 @@ import {
   CardContent,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import productsDescription, { Product } from "../../Assets/DataFiles/productDescription.tsx";
+import productsDescription, { Product } from "../../Assets/DataFiles/productDescription.ts";
 
-
+console.log("productsDescription:", productsDescription);
 const ProductPage: React.FC = () => {
   return (
     <Box p={3}>
@@ -30,7 +30,7 @@ const ProductPage: React.FC = () => {
         gap={2}
         mt={3}
       >
-        {productsDescription.map((product: Product) => (
+        {productsDescription?.map((product: Product) => (
           <Card key={product.id} sx={{ width: 280 }}>
             <CardActionArea component={Link} to={`/product/${product.id}`}>
               <CardMedia

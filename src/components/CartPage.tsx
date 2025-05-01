@@ -11,7 +11,7 @@ import {
     MenuItem,
   } from "@mui/material";
   import React, { useState } from "react";
-  import firstDressPic from "../../Assets/Images/weed2.jpg";
+  import firstDressPic from "../Assets/Images/weed2.jpg";
   import Divider from '@mui/material/Divider';
 
   const CartPage: React.FC = () => {

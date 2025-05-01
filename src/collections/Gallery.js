@@ -9,7 +9,7 @@ const Gallery = () => {
     { src: BannerImage, title: "Shop for Boys", link: "SHOPBOYS" },
     { src: BannerImage, title: "Shop for Girls", link: "SHOPGIRLS" },
     { src: BannerImage, title: "Shop Accessories", link: "SHOPACCESSORIES" },
-    { src: BannerImage, title: "New Collection", link: "NewArrivals" },
+    { src: BannerImage, title: "New Collection", link: "/shop/new-arrivals" },
   ];
 
   return (

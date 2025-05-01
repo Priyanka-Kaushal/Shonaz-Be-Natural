@@ -13,6 +13,10 @@ import MenuIcon from "@mui/icons-material/Menu";
 import SearchPage from "../Layouts/SearchPage";
 import { useMediaQuery } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import { CenterFocusStrong } from "@mui/icons-material";
+
+import { useNavigate } from 'react-router-dom';
+
 
 const style = {
   backgroundColor: 'transparent',
@@ -28,6 +32,12 @@ const Navbar = () => {
     left: false,
     Right: false,
   });
+
+  const navigate = useNavigate();
+
+  const handleStartShopping = () => {
+    navigate('/shop/new-arrivals');
+  };
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -57,16 +67,20 @@ const Navbar = () => {
     <Box
       className="leftDrawerMenu rightdrawerCheckOut"
       sx={{
-        width: 300,
+        width: 400,
+        textAlign: "center",
         padding: "60px 0",
+        position: "relative", // or "absolute"
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)", // perfect center
         "@media (max-width: 600px)": {
           gap: 2,
           height: "auto",
           zIndex: 1301,
-          // opacity: 0.5,
-          position: "relative",
         },
       }}
+      
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
@@ -74,13 +88,11 @@ const Navbar = () => {
       {anchor === "right" ? (
         <>
           {/* Right Drawer (Cart) */}
-          <Typography>Your Cart</Typography>
-          <Typography variant="h4">Subtotal: </Typography>
-          <Typography variant="h6">
-            Taxes and shipping calculated at checkout.
-          </Typography>
-          <Button variant="contained" color="primary" fullWidth>
-            Checkout
+          <Typography sx = {{ mb :"12px"}}>Your Cart Is empty</Typography>
+         
+          <Button variant="contained" color="primary" width ="40px" onClick={handleStartShopping}>
+           START SHOPPING 
+           
           </Button>
         </>
       ) : (
@@ -310,6 +322,7 @@ const Navbar = () => {
               anchor="left"
               open={openDrawer.left}
               onClose={toggleDrawer("left", false)}
+              sx  ={{styleCart}}
             >
               {DrawerList("left")}
             </Drawer>
@@ -337,3 +350,10 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
+const styleCart = {
+  Position: "absolute",
+  width: "50px"
+
+};

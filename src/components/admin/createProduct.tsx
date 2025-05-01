@@ -20,17 +20,21 @@ interface FormValues {
   subtitle: string;
   price: number;
   qty: number;
-  sizes: string[];
+  sizes ?: string[];
   tag: string;
   category: string;
   color: string;
   image: string;
 }
 
+
+interface AddProductsNewProps {
+  onClose: () => void;
+}
 // Errors type (partial because not every field may have an error)
 type FormErrors = Partial<Record<keyof FormValues, string>>;
 
-const AddProductsNew: React.FC = () => {
+const AddProductsNew: React.FC <AddProductsNewProps> = ({ onClose })=> {
   const navigate = useNavigate();
 
   // Form state and errors state
@@ -50,22 +54,10 @@ const AddProductsNew: React.FC = () => {
   const sizes = ["S", "M", "L", "XL"];
   const [selectedSize, setSelectedSize] = useState<string>("");
   const [selectedColor, setSelectedColor] = useState<string>("");
+  // const [product, setProduct] = useState(null);
 
   // Colors array
   const colors = ["#FF5733", "#33FF57", "#3357FF", "#F1C40F", "#8E44AD"];
-
-  // Handle field change
-  // const handleChange = (
-  //   e: React.ChangeEvent<HTMLInputElement | { name?: string; value: unknown }>
-  // ) => {
-  //   const name = e.target.name as keyof FormValues;
-  //   const value = e.target.value as string;
-
-  //   setForm((prevForm) => ({
-  //     ...prevForm,
-  //     [name]: value,
-  //   }));
-  // };
 
   const handleChange = (
     e: SelectChangeEvent<string> // This ensures the event is typed correctly for Select components
@@ -123,12 +115,17 @@ const AddProductsNew: React.FC = () => {
 
     if (!validate()) return;
 
-    const existingProducts = JSON.parse(localStorage.getItem("products") || "[]");
-    localStorage.setItem("products", JSON.stringify([...existingProducts, form]));
+    const existingProducts = JSON.parse(localStorage.getItem("products") || "[]" );
+     console.log(JSON.parse(localStorage.getItem("products")));
+    
 
+    localStorage.setItem("products", JSON.stringify([...existingProducts, form]));
+    onClose();
     // Debugging log
     console.log('Redirecting to ManageProduct');
     navigate("/manage-products");
+
+   
   };
 
   return (
@@ -263,7 +260,7 @@ const AddProductsNew: React.FC = () => {
                     key={index}
                     onClick={() => {
         setSelectedColor(color);
-        setForm((prev) => ({ ...prev, color: color })); // Update color in form state
+        setForm((prev) => ({ ...prev, color: color })); 
       }}
                     sx={{
                       mx: 8,
