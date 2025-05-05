@@ -220,8 +220,7 @@ const HomePage = () => {
             margin: "20px 0",
           }}
         >
-          {" "}
-          DISCOVER THE NEW ARRIVALS{" "}
+          DISCOVER THE NEW ARRIVALS
         </Typography>
 
         {/* SHOP New IN - 4 products visible  through filter the best selling product and show on the home page */}

@@ -1,16 +1,16 @@
 import React, { useState, useMemo } from "react";
-import { Box, Typography, TextField, Button, Link} from "@mui/material";
+import { Box, Typography, TextField, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginSuccess, loginFailure } from "../redux/actions/LoginAction";
-
+import NavigationButton from "./NavigationButton.tsx";
 
 const LoginUser = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -59,31 +59,31 @@ const LoginUser = () => {
   // Form submission handler
   const handleSubmit = (e) => {
     e.preventDefault();
-  
+
     // Check for errors before submitting
     if (emailError || passwordError) {
       dispatch(loginFailure("Fix the errors before submitting."));
       return;
     }
-  
+
     const credentials = { email, password };
     dispatch(loginSuccess(credentials));
-  
+
     // Store the credentials in localStorage
     localStorage.setItem("token", JSON.stringify(credentials));
-  
+
     // Navigate to the HomePage route after successful login
     navigate("/HomePage");
   };
-  
 
   return (
     <Box
-        sx={{
-          marginTop: "50px",
-          marginBottom: "50px",
+      sx={{
+        marginTop: "50px",
+        marginBottom: "50px",
       }}
     >
+        <Box>
       <Box
         sx={{
           display: "flex",
@@ -135,16 +135,17 @@ const LoginUser = () => {
         >
           SIGN IN
         </Button>
-
-        <Link href="/account/forgotPassword" underline="hover" sx={{ mb: 1 }}>
-          FORGOT PASSWORD
-        </Link>
-
-        <Link href="/account/register" underline="hover">
-          CREATE ACCOUNT
-        </Link>
+        </Box>
+        <br />
+        <Box>
+          <NavigationButton
+            label="FORGOT PASSWORD"
+            to="/account/forgotPassword"
+          />
+          <NavigationButton label="CREATE ACCOUNT" to="/account/register" />
+        </Box>
       </Box>
-    </Box>
+      </Box>
   );
 };
 

@@ -9,11 +9,14 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import productsDescription, { Product } from "../../Assets/DataFiles/productDescription.ts";
+import Spinner from "../../Layouts/Spinner.js";
+import FilterSort from "../FilterAndSorting.tsx";
 
 console.log("productsDescription:", productsDescription);
 const ProductPage: React.FC = () => {
   return (
     <Box p={3}>
+      <FilterSort />
       <Box sx={{ mt: "50px" }}>
         <Typography variant="h4" gutterBottom>
           Popular Products

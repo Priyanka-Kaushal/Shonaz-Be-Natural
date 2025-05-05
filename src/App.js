@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import store from './redux/store/store';
 import ProductPage from './components/auth/productPage.tsx';
 import Navbar from './Layouts/Navbar';
-import LoginUser from './auth/Login';
+import LoginUser from './auth/Login.tsx';
 // signup, forgot password, reset Password
 import { Toaster } from "react-hot-toast";
 import CartPage from './components/CartPage.tsx';
@@ -12,7 +12,7 @@ import CartPage from './components/CartPage.tsx';
 import Footer from "./Layouts/Footer";
 
 import HomePage from "./components/Home.js";
-import CreateAccount from "./auth/SignUp";
+import CreateAccount from "./auth/signUp.tsx";
 import ForgotPassword from './auth/ForgotPassword';
 // 
 import NewArrivals from './collections/newArrival.tsx';
@@ -31,7 +31,13 @@ import ShopGirls from './collections/shopGirls.tsx';
 import ManageProductItemsnew from './components/admin/manageProduct.tsx';
 import ProductCardList from './collections/prodComponent.tsx';
 
-import ProductCard from "./layouts/productCard.tsx"
+import ProductCard from "./layouts/productCard.tsx";
+import VerifyUser from  "./auth/emailVerify.tsx";
+
+
+import Spinner from './Layouts/Spinner.js';
+import FilterSort from './components/FilterAndSorting.tsx';
+
 function App() {
   return (
     <Provider store={store}>
@@ -46,6 +52,7 @@ function App() {
           {/* <Route path = "/SHOPACCESSORIES" element = {<SHOPACCESSORIES />} /> */}
           <Route path="/account/login" element={<LoginUser />} />
           <Route path="/account/register" element={<CreateAccount />} />
+          <Route path="/verifyEmail" element={<VerifyUser />} />
           <Route path="/account/forgotPassword" element={<ForgotPassword />} />
           <Route  path = "/create-product" element = {<CreateProducts />} />
           <Route  path = "/product-Overview" element = {<ProductOverview />} />
@@ -57,7 +64,7 @@ function App() {
           
 
           <Route path="/products-single" element={<ProductCard />} />
-
+          <Route path="/FilterSort" element={<FilterSort />} />
           
           
         </Routes>
