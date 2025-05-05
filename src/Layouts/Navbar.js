@@ -8,12 +8,14 @@ import {
   AppBar,
   Toolbar,
   IconButton,
+  CardMedia,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchPage from "../Layouts/SearchPage";
 import { useMediaQuery } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { CenterFocusStrong } from "@mui/icons-material";
+import BannerImage from "../Assets/Images/weed2.jpg"
 
 import { useNavigate } from 'react-router-dom';
 
@@ -32,6 +34,8 @@ const Navbar = () => {
     left: false,
     Right: false,
   });
+  const [drawerType, setDrawerType] = useState(null); // 'shop' | 'new' | 'collection'
+
 
   const navigate = useNavigate();
 
@@ -39,7 +43,7 @@ const Navbar = () => {
     navigate('/shop/new-arrivals');
   };
 
-  const toggleDrawer = (anchor, open) => (event) => {
+  const toggleDrawer = (anchor, open, type = null) => (event) => {
     if (
       event &&
       event.type === 'keydown' &&
@@ -47,9 +51,10 @@ const Navbar = () => {
     ) {
       return;
     }
-
+    setDrawerType(type);
     setOpenDrawer({ ...openDrawer, [anchor]: open });
   };
+  
 
   const toggleMobileMenu = (state) => () => {
     setMobileMenu(state);
@@ -68,12 +73,12 @@ const Navbar = () => {
       className="leftDrawerMenu rightdrawerCheckOut"
       sx={{
         width: 400,
-        textAlign: "center",
+        textAlign: "left",
         padding: "60px 0",
-        position: "relative", // or "absolute"
-        top: "50%",
+        position: "relative", 
+        top: "20%",
         left: "50%",
-        transform: "translate(-50%, -50%)", // perfect center
+        transform: "translate(-50%, -50%)", 
         "@media (max-width: 600px)": {
           gap: 2,
           height: "auto",
@@ -85,43 +90,54 @@ const Navbar = () => {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
+
       {anchor === "right" ? (
         <>
-          {/* Right Drawer (Cart) */}
-          <Typography sx = {{ mb :"12px"}}>Your Cart Is empty</Typography>
-         
-          <Button variant="contained" color="primary" width ="40px" onClick={handleStartShopping}>
-           START SHOPPING 
-           
+          <Typography sx={{ mb: "12px" }}>Your Cart Is empty</Typography>
+          <Button variant="contained" color="primary" onClick={handleStartShopping}>
+            START SHOPPING
           </Button>
         </>
       ) : (
         <>
-
-        <div className="transparent" component = "leftDrawer" sx = {style}>
-         {/* Left Drawer (Shop, New, Collection) */}
-         <Link
-            to="/newCollll"
-            style={{ display: "block", padding: "20px 60px 0px 60px", pointerEvents: "auto"}}
-          >
-            Newwwwwwwwwwwww
-          </Link>
-          <Link
-            to="/new"
-            style={{ display: "block", padding: "20px 60px 0px 60px" }}
-          >
-            NEW
-          </Link>
-          <Link
-            to="/collection"
-            style={{ display: "block", padding: "20px 60px 0px 60px" }}
-          >
-            COLLECTION
-          </Link>
-        </div>
-          
+          {drawerType === "shop" && (
+            <>
+              <Link to="/ethnic-wear" style={linkStyle}>Ethnic Wear</Link>
+              <Link to="/indian-western" style={linkStyle}>Indian Western Wear</Link>
+              <Link to="/sleepwear" style={linkStyle}>Sleepwear</Link>
+              <Link to="/accessories" style={linkStyle}>Accessories</Link>
+              
+              <Box>
+              <CardMedia
+        component="img"
+        height="194"
+        image= {BannerImage}
+        alt="Paella dish"
+      />
+       <CardMedia
+        component="img"
+        height="194"
+        image="/static/images/cards/paella.jpg"
+        alt="Paella dish"
+      />
+              </Box>
+            </>
+          )}
+          {drawerType === "new" && (
+            <>
+              <Link to="/new-arrivals" style={linkStyle}>New - Arrivals</Link>
+            </>
+          )}
+          {drawerType === "collection" && (
+            <>
+              <Link to="/collection" style={linkStyle}>Collection</Link>
+            </>
+          )}
         </>
       )}
+      
+
+
     </Box>
   );
 
@@ -182,45 +198,11 @@ const Navbar = () => {
               flexGrow: 0,
             }}
           >
-            <Link
-              onClick={toggleDrawer("left", true)}
-              style={{
-                color: "black",
-                cursor: "pointer",
-                textDecoration: "none",
-                fontWeight: "bold",
-                fontSize: "16px",
-                textAlign: "center",
-              }}
-            >
-              SHOP
-            </Link>
-            <Link
-              onClick={toggleDrawer("left", true)}
-              style={{
-                color: "black",
-                cursor: "pointer",
-                textDecoration: "none",
-                fontWeight: "bold",
-                fontSize: "16px",
-                textAlign: "center",
-              }}
-            >
-              NEW
-            </Link>
-            <Link
-              onClick={toggleDrawer("left", true)}
-              style={{
-                color: "black",
-                cursor: "pointer",
-                textDecoration: "none",
-                fontWeight: "bold",
-                fontSize: "16px",
-                textAlign: "center",
-              }}
-            >
-              COLLECTION
-            </Link>
+
+<Link onClick={toggleDrawer("left", true, "shop")}>SHOP</Link>
+<Link onClick={toggleDrawer("left", true, "new")}>NEW</Link>
+<Link onClick={toggleDrawer("left", true, "collection")}>COLLECTION</Link>
+
           </Box>
 
           {/* Mobile Menu Icon */}
@@ -346,6 +328,9 @@ const Navbar = () => {
       {/* Search Modal */}
       <SearchPage open={openSearchModal} handleClose={handleCloseSearchModal} />
     </Box>
+
+    // Notification send in two time per day 
+
   );
 };
 
@@ -356,4 +341,12 @@ const styleCart = {
   Position: "absolute",
   width: "50px"
 
+};
+
+const linkStyle = {
+  display: "block",
+  padding: "20px 60px 0px 60px",
+  pointerEvents: "auto",
+  textDecoration: "none",
+  color: "black",
 };
