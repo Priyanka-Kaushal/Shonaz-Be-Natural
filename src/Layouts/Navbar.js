@@ -15,16 +15,14 @@ import SearchPage from "../Layouts/SearchPage";
 import { useMediaQuery } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { CenterFocusStrong } from "@mui/icons-material";
-import BannerImage from "../Assets/Images/weed2.jpg"
+import BannerImage from "../Assets/Images/weed2.jpg";
 
-import { useNavigate } from 'react-router-dom';
-
+import { useNavigate } from "react-router-dom";
 
 const style = {
-  backgroundColor: 'transparent',
-  pointerEvents: 'none',
+  backgroundColor: "transparent",
+  pointerEvents: "none",
 };
-
 
 const Navbar = () => {
   const isMobile = useMediaQuery("(max-width: 600px)");
@@ -36,25 +34,25 @@ const Navbar = () => {
   });
   const [drawerType, setDrawerType] = useState(null); // 'shop' | 'new' | 'collection'
 
-
   const navigate = useNavigate();
 
   const handleStartShopping = () => {
-    navigate('/shop/new-arrivals');
+    navigate("/shop/new-arrivals");
   };
 
-  const toggleDrawer = (anchor, open, type = null) => (event) => {
-    if (
-      event &&
-      event.type === 'keydown' &&
-      (event.key === 'Tab' || event.key === 'Shift')
-    ) {
-      return;
-    }
-    setDrawerType(type);
-    setOpenDrawer({ ...openDrawer, [anchor]: open });
-  };
-  
+  const toggleDrawer =
+    (anchor, open, type = null) =>
+    (event) => {
+      if (
+        event &&
+        event.type === "keydown" &&
+        (event.key === "Tab" || event.key === "Shift")
+      ) {
+        return;
+      }
+      setDrawerType(type);
+      setOpenDrawer({ ...openDrawer, [anchor]: open });
+    };
 
   const toggleMobileMenu = (state) => () => {
     setMobileMenu(state);
@@ -75,26 +73,28 @@ const Navbar = () => {
         width: 400,
         textAlign: "left",
         padding: "60px 0",
-        position: "relative", 
-        top: "20%",
+        position: "relative",
+        top: "60%",
         left: "50%",
-        transform: "translate(-50%, -50%)", 
+        transform: "translate(-50%, -50%)",
         "@media (max-width: 600px)": {
           gap: 2,
           height: "auto",
           zIndex: 1301,
         },
       }}
-      
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-
       {anchor === "right" ? (
         <>
           <Typography sx={{ mb: "12px" }}>Your Cart Is empty</Typography>
-          <Button variant="contained" color="primary" onClick={handleStartShopping}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleStartShopping}
+          >
             START SHOPPING
           </Button>
         </>
@@ -102,42 +102,62 @@ const Navbar = () => {
         <>
           {drawerType === "shop" && (
             <>
-              <Link to="/ethnic-wear" style={linkStyle}>Ethnic Wear</Link>
-              <Link to="/indian-western" style={linkStyle}>Indian Western Wear</Link>
-              <Link to="/sleepwear" style={linkStyle}>Sleepwear</Link>
-              <Link to="/accessories" style={linkStyle}>Accessories</Link>
-              
-              <Box>
-              <CardMedia
-        component="img"
-        height="194"
-        image= {BannerImage}
-        alt="Paella dish"
-      />
-       <CardMedia
-        component="img"
-        height="194"
-        image="/static/images/cards/paella.jpg"
-        alt="Paella dish"
-      />
+              <Link to="/ethnic-wear" style={linkStyle}>
+                Ethnic Wear
+              </Link>
+              <Link to="/indian-western" style={linkStyle}>
+                Indian Western Wear
+              </Link>
+              <Link to="/sleepwear" style={linkStyle}>
+                Sleepwear
+              </Link>
+              <Link to="/accessories" style={linkStyle}>
+                Accessories
+              </Link>
+
+              <Box
+                sx={{
+                  width: "360px",
+                  display: "flex",
+                  flexWrap: "wrap",
+                  gap: "10px",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  flexDirection: "row",
+                  m: "20px", // row to enable wrapping into columns
+                }}
+              >
+                <CardMedia
+                  component="img"
+                  sx={{ width: "150px", height: "150px", objectFit: "cover" }}
+                  image={BannerImage}
+                  alt="Image 1"
+                />
+                <CardMedia
+                  component="img"
+                  sx={{ width: "150px", height: "150px", objectFit: "cover" }}
+                  image={BannerImage}
+                  alt="Image 1"
+                />
               </Box>
             </>
           )}
           {drawerType === "new" && (
             <>
-              <Link to="/new-arrivals" style={linkStyle}>New - Arrivals</Link>
+              <Link to="/new-arrivals" style={linkStyle}>
+                New - Arrivals
+              </Link>
             </>
           )}
           {drawerType === "collection" && (
             <>
-              <Link to="/collection" style={linkStyle}>Collection</Link>
+              <Link to="/collection" style={linkStyle}>
+                Collection
+              </Link>
             </>
           )}
         </>
       )}
-      
-
-
     </Box>
   );
 
@@ -198,11 +218,11 @@ const Navbar = () => {
               flexGrow: 0,
             }}
           >
-
-<Link onClick={toggleDrawer("left", true, "shop")}>SHOP</Link>
-<Link onClick={toggleDrawer("left", true, "new")}>NEW</Link>
-<Link onClick={toggleDrawer("left", true, "collection")}>COLLECTION</Link>
-
+            <Link onClick={toggleDrawer("left", true, "shop")}>SHOP</Link>
+            <Link onClick={toggleDrawer("left", true, "new")}>NEW</Link>
+            <Link onClick={toggleDrawer("left", true, "collection")}>
+              COLLECTION
+            </Link>
           </Box>
 
           {/* Mobile Menu Icon */}
@@ -304,7 +324,7 @@ const Navbar = () => {
               anchor="left"
               open={openDrawer.left}
               onClose={toggleDrawer("left", false)}
-              sx  ={{styleCart}}
+              sx={{ styleCart }}
             >
               {DrawerList("left")}
             </Drawer>
@@ -329,18 +349,15 @@ const Navbar = () => {
       <SearchPage open={openSearchModal} handleClose={handleCloseSearchModal} />
     </Box>
 
-    // Notification send in two time per day 
-
+    // Notification send in two time per day
   );
 };
 
 export default Navbar;
 
-
 const styleCart = {
   Position: "absolute",
-  width: "50px"
-
+  width: "50px",
 };
 
 const linkStyle = {
