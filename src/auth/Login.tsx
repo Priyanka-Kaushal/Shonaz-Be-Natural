@@ -56,25 +56,64 @@ const LoginUser = () => {
     }
   };
 
-  // Form submission handler
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  // // Form submission handler
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
 
-    // Check for errors before submitting
+  //   // Check for errors before submitting
+  //   if (emailError || passwordError) {
+  //     dispatch(loginFailure("Fix the errors before submitting."));
+  //     return;
+  //   }
+
+  //   const credentials = { email, password };
+  //   dispatch(loginSuccess(credentials));
+
+  //   // Store the credentials in localStorage
+  //   localStorage.setItem("token", JSON.stringify(credentials));
+    
+  //   try { 
+  //     const
+
+  //   }catch (error){
+     
+  //   }
+  //   // Navigate to the HomePage route after successful login
+  //   navigate("/HomePage");
+  // };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
     if (emailError || passwordError) {
       dispatch(loginFailure("Fix the errors before submitting."));
       return;
     }
-
-    const credentials = { email, password };
-    dispatch(loginSuccess(credentials));
-
-    // Store the credentials in localStorage
-    localStorage.setItem("token", JSON.stringify(credentials));
-
-    // Navigate to the HomePage route after successful login
-    navigate("/HomePage");
+  
+    try {
+      const response = await fetch("http://localhost:4000/api/users/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        dispatch(loginSuccess(data));
+        localStorage.setItem("token", data.token);
+        navigate("/");
+      } else {
+        dispatch(loginFailure(data.message));
+        alert(data.message || "Login failed");
+      }
+    } catch (error) {
+      dispatch(loginFailure("Server error"));
+      alert("An error occurred while logging in.");
+      console.error("Login error:", error);
+    }
   };
+  
 
   return (
     <Box
