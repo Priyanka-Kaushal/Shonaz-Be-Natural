@@ -55,33 +55,7 @@ const LoginUser = () => {
       setPasswordError("");
     }
   };
-
-  // // Form submission handler
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   // Check for errors before submitting
-  //   if (emailError || passwordError) {
-  //     dispatch(loginFailure("Fix the errors before submitting."));
-  //     return;
-  //   }
-
-  //   const credentials = { email, password };
-  //   dispatch(loginSuccess(credentials));
-
-  //   // Store the credentials in localStorage
-  //   localStorage.setItem("token", JSON.stringify(credentials));
-    
-  //   try { 
-  //     const
-
-  //   }catch (error){
-     
-  //   }
-  //   // Navigate to the HomePage route after successful login
-  //   navigate("/HomePage");
-  // };
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
   
@@ -91,7 +65,7 @@ const LoginUser = () => {
     }
   
     try {
-      const response = await fetch("http://localhost:4000/api/users/login", {
+      const response = await fetch("http://localhost:4000/api/auth/signIn", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),

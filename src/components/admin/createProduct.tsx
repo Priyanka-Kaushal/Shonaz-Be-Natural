@@ -1,6 +1,7 @@
 import React, { useState, Fragment } from "react";
 import { useNavigate } from "react-router-dom";
 import { SelectChangeEvent } from '@mui/material';
+import axios from "axios";
 
 
 import {
@@ -20,7 +21,7 @@ interface FormValues {
   subtitle: string;
   price: number;
   qty: number;
-  sizes ?: string[];
+  sizes ?: string;
   tag: string;
   category: string;
   color: string;
@@ -59,18 +60,26 @@ const AddProductsNew: React.FC <AddProductsNewProps> = ({ onClose })=> {
   // Colors array
   const colors = ["#FF5733", "#33FF57", "#3357FF", "#F1C40F", "#8E44AD"];
 
-  const handleChange = (
-    e: SelectChangeEvent<string> // This ensures the event is typed correctly for Select components
-  ) => {
+  // const handleChange = (
+  //   e: SelectChangeEvent<string> // This ensures the event is typed correctly for Select components
+  // ) => {
+  //   const { name, value } = e.target;
+  
+  //   setForm((prevForm) => ({
+  //     ...prevForm,
+  //     [name]: value,
+  //   }));
+  // };
+  
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
   
     setForm((prevForm) => ({
       ...prevForm,
-      [name]: value,
+      [name]: name === "price" || name === "qty" ? Number(value) : value,
     }));
   };
   
-
   // Handle image upload
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -107,27 +116,64 @@ const AddProductsNew: React.FC <AddProductsNewProps> = ({ onClose })=> {
   };
 
   // Submit handler
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  // const handleSubmit = (e: React.FormEvent) => {
+  //   e.preventDefault();
     
-    // Debugging log
-    console.log('Form Submit Triggered:', form);
+  //   // Debugging log
+  //   console.log('Form Submit Triggered:', form);
 
-    if (!validate()) return;
+  //   if (!validate()) return;
 
-    const existingProducts = JSON.parse(localStorage.getItem("products") || "[]" );
-     console.log(JSON.parse(localStorage.getItem("products")));
+  //   const existingProducts = JSON.parse(localStorage.getItem("products") || "[]" );
+  //    console.log(JSON.parse(localStorage.getItem("products")));
     
 
-    localStorage.setItem("products", JSON.stringify([...existingProducts, form]));
-    onClose();
-    // Debugging log
-    console.log('Redirecting to ManageProduct');
-    navigate("/manage-products");
+  //   localStorage.setItem("products", JSON.stringify([...existingProducts, form]));
+  //   onClose();
+  //   // Debugging log
+  //   console.log('Redirecting to ManageProduct');
+  //   navigate("/manage-products");
 
    
+  // };
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+  
+    if (!validate()) return;
+  
+    const formData = new FormData();
+  
+    formData.append("title", form.title);
+    formData.append("subtitle", form.subtitle);
+    formData.append("price", String(form.price));
+    formData.append("qty", String(form.qty));
+    formData.append("tag", form.tag);
+    formData.append("category", form.category);
+    formData.append("color", form.color);
+    formData.append("size", selectedSize); // backend should accept single size or modify for multiple
+    if (form.image) {
+      const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
+      if (fileInput && fileInput.files && fileInput.files.length > 0) {
+        formData.append("image", fileInput.files[0]);
+      }
+    }
+  
+    try {
+      const response = await axios.post("http://localhost:4000/api/products/product-add", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+  
+      console.log("Product added:", response.data);
+      onClose();
+      navigate("/manage-products");
+  
+    } catch (error) {
+      console.error("Error adding product:", error);
+    }
   };
-
+  
   return (
     <Fragment>
       <Box component="form" onSubmit={handleSubmit} sx={style}>
@@ -142,7 +188,7 @@ const AddProductsNew: React.FC <AddProductsNewProps> = ({ onClose })=> {
               name="title"
               label="Product Name"
               value={form.title}
-              onChange={handleChange}
+              onChange={handleInputChange}
               fullWidth
               margin="normal"
               error={!!errors.title}
@@ -152,7 +198,7 @@ const AddProductsNew: React.FC <AddProductsNewProps> = ({ onClose })=> {
               name="subtitle"
               label="Subtitle"
               value={form.subtitle}
-              onChange={handleChange}
+              onChange={handleInputChange}
               fullWidth
               margin="normal"
               error={!!errors.subtitle}
@@ -163,7 +209,7 @@ const AddProductsNew: React.FC <AddProductsNewProps> = ({ onClose })=> {
               label="Price"
               type="number"
               value={form.price}
-              onChange={handleChange}
+              onChange={handleInputChange}
               fullWidth
               margin="normal"
               error={!!errors.price}
@@ -174,7 +220,7 @@ const AddProductsNew: React.FC <AddProductsNewProps> = ({ onClose })=> {
               label="Quantity"
               type="number"
               value={form.qty}
-              onChange={handleChange}
+              onChange={handleInputChange}
               fullWidth
               margin="normal"
               error={!!errors.qty}
@@ -184,7 +230,7 @@ const AddProductsNew: React.FC <AddProductsNewProps> = ({ onClose })=> {
               name="tag"
               label="Tag"
               value={form.tag}
-              onChange={handleChange}
+              onChange={handleInputChange}
               fullWidth
               margin="normal"
               error={!!errors.tag}
@@ -199,7 +245,7 @@ const AddProductsNew: React.FC <AddProductsNewProps> = ({ onClose })=> {
               <Select
                 name="category"
                 value={form.category}
-                onChange={handleChange}
+                onChange={handleInputChange}
                 label="Category"
               >
                 <MenuItem value="Shirts">Shirts</MenuItem>
@@ -354,3 +400,6 @@ const style = {
     justifyContent: "flex-start",
     gap:"2px"
   };
+
+
+ 

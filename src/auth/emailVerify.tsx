@@ -1,171 +1,204 @@
-// import React, { Fragment } from "react";
+
+// // import React, { useState } from "react";
+// // import { Box, Typography, TextField, Button } from "@mui/material";
+// // import { toast } from "react-hot-toast";
+// // import { useLocation, useNavigate } from "react-router-dom";
+
+// // const VerifyEmail: React.FC = () => {
+ 
+// //   const navigate = useNavigate();
+// //   const location = useLocation();
+// //   const emailFromState = (location.state as { email?: string })?.email;
+
+// //   const [otp, setOtp] = useState("");
+
+// //   const handleVerify = async () => {
+// //     try {
+// //       const response = await fetch("", {
+// //         method: "POST",
+// //         headers: { "Content-Type": "application/json" },
+// //         body: JSON.stringify({ email: emailFromState, otp }),
+// //       });
+
+// //       const data = await response.json();
+
+// //       if (response.ok) {
+// //         toast.success("Email verified successfully!");
+// //         navigate("/shop/new-arrivals");
+// //       } else {
+// //         toast.error(data.message || "Invalid OTP");
+// //       }
+// //     } catch (err) {
+// //       toast.error("Error verifying OTP");
+// //       console.error(err);
+// //     }
+// //   };
+
+// //   return (
+// //     <Box sx={{ maxWidth: 400, mx: "auto", mt: 8 }}>
+// //       <Typography variant="h5" mb={3}>Verify Email</Typography>
+
+// //       <Typography variant="body2" mb={2}>
+// //         OTP sent to: <strong>{emailFromState}</strong>
+// //       </Typography>
+
+// //       <TextField
+// //         label="Enter OTP"
+// //         value={otp}
+// //         onChange={(e) => setOtp(e.target.value)}
+// //         fullWidth
+// //         sx={{ mb: 2 }}
+// //       />
+// //       <Button variant="contained" fullWidth onClick={handleVerify}>
+// //         Verify OTP
+// //       </Button>
+// //     </Box>
+// //   );
+// // };
+
+// // export default VerifyEmail;
+// import React, { useState, useEffect } from "react";
 // import {
-//   Typography,
 //   Box,
-//   Button,
-//   Link,
+//   Typography,
 //   TextField,
-//   Stack,
-//   Divider
+//   Button,
+//   CircularProgress,
 // } from "@mui/material";
+// import { useNavigate, useLocation } from "react-router-dom";
+// import { toast } from "react-hot-toast";
 
-// const VerifyUser: React.FC = () => {
+// const VerifyEmail = () => {
+//   const navigate = useNavigate();
+//   const location = useLocation();
 
-//     const handle_otp = () => {
-      
-//         try{ },
-//         catch(){
+//   // Get email from location state or localStorage
+//   const [email, setEmail] = useState(() => {
+//     return location.state?.email || localStorage.getItem("verify_email") || "";
+//   });
 
-//         }
+//   const [otp, setOtp] = useState("");
+//   const [loading, setLoading] = useState(false);
+
+//   const handleVerify = async () => {
+//     if (!otp.trim()) {
+//       toast.error("Please enter the OTP");
+//       return;
 //     }
 
+//     setLoading(true);
+
+//     try {
+//       const response = await fetch("http://localhost:4000/api/auth/verify-otp", {
+//         method: "POST",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify({ email, otp }),
+//       });
+
+//       const data = await response.json();
+
+//       if (response.ok) {
+//         toast.success("Email verified successfully!");
+//         localStorage.removeItem("verify_email"); // Clean up
+//         navigate("/account/login");
+//       } else {
+//         toast.error(data.message || "Invalid or expired OTP");
+//       }
+//     } catch (error) {
+//       toast.error("Server error. Try again.");
+//       console.error("OTP verification error:", error);
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   useEffect(() => {
+//     if (!email) {
+//       toast.error("No email provided. Please register first.");
+//       navigate("/account/register");
+//     }
+//   }, [email, navigate]);
+
 //   return (
-//     <Fragment>
-//       <Box
+//     <Box
+//       sx={{
+//         marginTop: "60px",
+//         marginBottom: "40px",
+//         display: "flex",
+//         flexDirection: "column",
+//         alignItems: "center",
+//         maxWidth: "400px",
+//         marginX: "auto",
+//         padding: "20px",
+//         boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.1)",
+//         borderRadius: "8px",
+//       }}
+//     >
+//       <Typography variant="h6" sx={{ mb: 2 }}>
+//         Verify Your Email
+//       </Typography>
+//       <Typography variant="body2" sx={{ mb: 2 }}>
+//         Please enter the OTP sent to <strong>{email}</strong>
+//       </Typography>
+//       <TextField
+//         label="OTP"
+//         variant="outlined"
+//         fullWidth
+//         value={otp}
+//         onChange={(e) => setOtp(e.target.value)}
+//         sx={{ mb: 2 }}
+//       />
+//       <Button
+//         variant="contained"
+//         color="primary"
+//         fullWidth
+//         disabled={loading}
+//         onClick={handleVerify}
 //         sx={{
-//           maxWidth: 500,
-//           margin: "5% auto",
-//           padding: 0,
-//           textAlign: "center",
-//           borderRadius: 3,
-//           boxShadow: 3,
-//           backgroundColor: "#ffffff",
+//           backgroundColor: "#000",
+//           ":hover": { backgroundColor: "#333" },
 //         }}
 //       >
-
-//         {/* Top Section - Light Grey */}
-//         <Box sx={{ backgroundColor: "#f0f0f0", p: 3, borderTopLeftRadius: 12, borderTopRightRadius: 12 }}>
-//           <Typography variant="h5" gutterBottom color="primary">
-//             THANKS FOR SIGNING UP!
-//           </Typography>
-//           <Typography variant="subtitle1" gutterBottom>
-//             Verify Your OTP 
-//           </Typography>
-//         </Box>
-
-//         {/* Main Body */}
-//         <Box sx={{ px: 4, py: 2 }}>
-//           <Typography variant="body1" gutterBottom>
-//             Please use the following One Time Password (OTP):
-//           </Typography>
-
-//           <TextField
-//             label="Enter OTP"
-//             variant="outlined"
-//             fullWidth
-//             sx={{ my: 2 }}
-//           />
-
-//           <Typography variant="body2" sx={{ mb: 2 }}>
-//             This passcode will only be valid for the next 2 minutes. If it doesn't work, you can use the login verification link below.
-//           </Typography>
-
-//           <Button
-//             variant="contained"
-//             sx={{
-//               backgroundColor: "green",
-//               ":hover": { backgroundColor: "rgba(137, 184, 137, 0.3)" },
-//               mb: 2,
-
-//               onclick ={handle_otp};
-//             }}
-//             fullWidth
-//           >
-//             Verify Your OTP 
-//           </Button>
-
-//           <Typography variant="body2" color="textSecondary" gutterBottom>
-//             Thank you,<br />
-//             Infynno Team
-//           </Typography>
-
-//           <Typography variant="caption" color="textSecondary" gutterBottom>
-//             This email was sent from sales@infynno.com. If you'd rather not receive this kind of email, you can unsubscribe or manage your email preferences.
-//           </Typography>
-//         </Box>
-
-//         {/* Get in Touch - Light Transparent Green */}
-//         <Box
-//           sx={{
-//             backgroundColor: "rgba(230, 236, 230, 0.3)", // light green with transparency
-//             px: 4,
-//             py: 3,
-//           }}
-//         >
-//           <Typography variant="subtitle2" gutterBottom>Get in Touch</Typography>
-//           <Typography variant="body2">📞 +91-XXXXXXXXXX</Typography>
-//           <Typography variant="body2">📧 shonaz@gmail.com </Typography>
-
-//           <Stack direction="row" spacing={2} justifyContent="center" sx={{ mt: 2 }}>
-//             <Link href="#" underline="hover">Facebook</Link>
-//             <Link href="#" underline="hover">Instagram</Link>
-//             <Link href="#" underline="hover">LinkedIn</Link>
-//           </Stack>
-//         </Box>
-
-//         {/* Footer - Light Grey */}
-//         <Box sx={{ backgroundColor: "#f0f0f0", py: 2, borderBottomLeftRadius: 12, borderBottomRightRadius: 12 }}>
-//           <Typography variant="caption" color="textSecondary">
-//             © 2025 Shonaz. All Rights Reserved.
-//           </Typography>
-//         </Box>
-//       </Box>
-//     </Fragment>
+//         {loading ? <CircularProgress size={24} color="inherit" /> : "Verify OTP"}
+//       </Button>
+//     </Box>
 //   );
 // };
 
-// export default VerifyUser;
-
-
-// // import React, { useState } from 'react';
-// // import { useDispatch, useSelector } from 'react-redux';
-// // import { sendOtp } from '../redux/actions/otpAction';
-
-// // const OtpSender = () => {
-// //     const [email, setEmail] = useState('');
-// //     const dispatch = useDispatch();
-
-// //     const { loading, success, error, otp } = useSelector((state) => state.otp);
-
-// //     const handleSendOtp = () => {
-// //         dispatch(sendOtp(email));
-// //     };
-
-// //     return (
-// //         <div>
-// //             <h2>Send OTP</h2>
-// //             <input
-// //                 type="email"
-// //                 value={email}
-// //                 onChange={(e) => setEmail(e.target.value)}
-// //                 placeholder="Enter your email"
-// //             />
-// //             <button onClick={handleSendOtp} disabled={loading}>
-// //                 Send OTP
-// //             </button>
-
-// //             {loading && <p>Sending...</p>}
-// //             {success && <p>OTP sent successfully! (OTP: {otp})</p>}
-// //             {error && <p style={{ color: 'red' }}>{error}</p>}
-// //         </div>
-// //     );
-// // };
-
-// // export default OtpSender;
-
-import React, { useState } from "react";
-import { Box, Typography, TextField, Button } from "@mui/material";
+// export default VerifyEmail;
+import React, { useState, useEffect } from "react";
+import {
+  Box,
+  Typography,
+  TextField,
+  Button,
+  CircularProgress,
+} from "@mui/material";
+import { useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 
-const VerifyEmail: React.FC = () => {
-  const [otp, setOtp] = useState("");
-  const [email, setEmail] = useState("");
+const VerifyEmail = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Get email from location state or localStorage
+  const [email, setEmail] = useState(() => {
+    return location.state?.email || localStorage.getItem("verify_email") || "";
+  });
+
+  const [otp, setOtp] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleVerify = async () => {
+    if (!otp.trim()) {
+      toast.error("Please enter the OTP");
+      return;
+    }
+
+    setLoading(true);
+
     try {
-      const response = await fetch("http://localhost:4000/verify-otp", {
+      const response = await fetch("http://localhost:4000/api/auth/verify-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, otp }),
@@ -175,40 +208,70 @@ const VerifyEmail: React.FC = () => {
 
       if (response.ok) {
         toast.success("Email verified successfully!");
-        // Redirect to login or dashboard
-        navigate("/shop/new-arrivals");
+        localStorage.removeItem("verify_email"); // Clean up
+        navigate("/"); // ✅ Redirect to home
       } else {
-        toast.error(data.message || "Invalid OTP");
+        toast.error(data.message || "Invalid or expired OTP");
       }
-    } catch (err) {
-      toast.error("Error verifying OTP");
-      console.error(err);
+    } catch (error) {
+      toast.error("Server error. Try again.");
+      console.error("OTP verification error:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
+  useEffect(() => {
+    if (!email) {
+      toast.error("No email provided. Redirecting to home.");
+      navigate("/"); // ✅ Redirect to home if no email
+    }
+  }, [email, navigate]);
+
   return (
-    <Box sx={{ maxWidth: 400, mx: "auto", mt: 8 }}>
-      <Typography variant="h5" mb={3}>Verify Email</Typography>
+    <Box
+      sx={{
+        marginTop: "60px",
+        marginBottom: "40px",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        maxWidth: "400px",
+        marginX: "auto",
+        padding: "20px",
+        boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.1)",
+        borderRadius: "8px",
+      }}
+    >
+      <Typography variant="h6" sx={{ mb: 2 }}>
+        Verify Your Email
+      </Typography>
+      <Typography variant="body2" sx={{ mb: 2 }}>
+        Please enter the OTP sent to <strong>{email}</strong>
+      </Typography>
       <TextField
-        label="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        label="OTP"
+        variant="outlined"
         fullWidth
-        sx={{ mb: 2 }}
-      />
-      <TextField
-        label="Enter OTP"
         value={otp}
         onChange={(e) => setOtp(e.target.value)}
-        fullWidth
         sx={{ mb: 2 }}
       />
-      <Button variant="contained" fullWidth onClick={handleVerify}>
-        Verify OTP
+      <Button
+        variant="contained"
+        color="primary"
+        fullWidth
+        disabled={loading}
+        onClick={handleVerify}
+        sx={{
+          backgroundColor: "#000",
+          ":hover": { backgroundColor: "#333" },
+        }}
+      >
+        {loading ? <CircularProgress size={24} color="inherit" /> : "Verify OTP"}
       </Button>
     </Box>
   );
 };
 
 export default VerifyEmail;
-
