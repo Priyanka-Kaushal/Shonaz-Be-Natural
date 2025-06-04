@@ -5,7 +5,7 @@
 // // import { useLocation, useNavigate } from "react-router-dom";
 
 // // const VerifyEmail: React.FC = () => {
- 
+
 // //   const navigate = useNavigate();
 // //   const location = useLocation();
 // //   const emailFromState = (location.state as { email?: string })?.email;
@@ -197,12 +197,19 @@ const VerifyEmail = () => {
 
     setLoading(true);
 
+    const BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:4000";
+
+    const API_URL = `${BASE_URL}/api/auth/verify-otp`;
+    console.log("BASE_URL is ", BASE_URL);
+
     try {
-      const response = await fetch("http://localhost:4000/api/auth/verify-otp", {
+
+      const response = await fetch(`${API_URL}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, otp }),
+        body: JSON.stringify({ email, otp }),  // ✅ Include OTP here!
       });
+
 
       const data = await response.json();
 

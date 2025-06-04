@@ -15,9 +15,9 @@ const LoginUser = () => {
   const dispatch = useDispatch();
 
   // Optimized regex using useMemo
-  const lowerCase = useMemo(() => /[a-z]/g, []);
-  const upperCase = useMemo(() => /[A-Z]/g, []);
-  const numbers = useMemo(() => /[0-9]/g, []);
+  const lowerCase = useMemo(() => /[a-z]/, []);
+const upperCase = useMemo(() => /[A-Z]/, []);
+const numbers = useMemo(() => /[0-9]/, []);
 
   // Email validation regex
   const validateEmail = (email) =>
@@ -63,12 +63,18 @@ const LoginUser = () => {
       dispatch(loginFailure("Fix the errors before submitting."));
       return;
     }
+
+    const BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:4000";
+
+    const API_URL = `${BASE_URL}/api/auth/signIn`;
+    console.log("BASE_URL is ", BASE_URL);
+
   
     try {
-      const response = await fetch("http://localhost:4000/api/auth/signIn", {
+        const response = await fetch(`${API_URL}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password}),
       });
   
       const data = await response.json();

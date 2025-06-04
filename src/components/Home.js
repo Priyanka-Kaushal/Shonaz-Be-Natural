@@ -29,6 +29,7 @@ const HomePage = () => {
   return (
     <>
       {/* Section One  */}
+      <Box sx={{ paddingTop: 0, marginTop: 0 }}>
       <section className="BannerImage">
         <CardMedia
           component="img"
@@ -46,6 +47,8 @@ const HomePage = () => {
           }}
         />
       </section>
+      </Box>
+
 
       {/* Section two of the page */}
       <section>
