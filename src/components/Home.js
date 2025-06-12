@@ -63,9 +63,8 @@ const HomePage = () => {
           SHOP NEW IN
         </Typography>
 
-        <Box display=" flex">
-          {/* Example Card for a product */}
-          <Card sx={{ maxWidth: 300, margin: "20px auto" }}>
+         <Box display=" flex">
+          {/* <Card sx={{ maxWidth: 300, margin: "20px auto" }}>
             <CardMedia
               component="img"
               sx={{
@@ -183,8 +182,13 @@ const HomePage = () => {
                 Select Option
               </Button>
             </CardActions>
-          </Card>
-        </Box>
+          </Card> */}
+        </Box> 
+       
+       
+    
+
+
       </section>
 
       <section className="section-gallery-products">

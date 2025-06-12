@@ -220,11 +220,41 @@ const Navbar = () => {
     "Search"
   )}
 </Button>
-
+{/* 
 
             {!isMobile && (
               <Link to="/account/login" style={headerLink}>ACCOUNT</Link>
-            )}
+              
+            )} */}
+
+            {!isMobile && (
+  <>
+    {!localStorage.getItem("user_role") ? (
+      // Show ACCOUNT link if user is not logged in
+      <Link to="/account/login" style={headerLink}>ACCOUNT</Link>
+    ) : (
+      // Show LOGOUT button if user is logged in
+      <button
+        onClick={() => {
+          localStorage.removeItem("user_role");
+          localStorage.removeItem("verify_email");
+          // You may clear more items as needed
+          window.location.href = "/"; // or use navigate("/") if using useNavigate
+        }}
+        style={{
+          ...headerLink,
+          background: "transparent",
+          border: "none",
+          cursor: "pointer",
+          color: "inherit",
+        }}
+      >
+        LOGOUT
+      </button>
+    )}
+  </>
+)}
+
 
             <Link onClick={toggleDrawer("right", true)} style={headerLink}>CART</Link>
           </Box>

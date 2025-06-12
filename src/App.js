@@ -33,6 +33,8 @@ import Spinner from './Layouts/Spinner.js';
 import FilterSort from './components/FilterAndSorting.tsx';
 import Unauthorized from './components/auth/Unauthorized.tsx';
 import ProtectedRoute from './components/auth/ProtectedRoutes.tsx';
+// import PrivateAdminRoute from "./components/PrivateAdminRoute";
+import SignupGoogle from "./auth/signUpwithGoogle.js"
 
 function App() {
 return ( <Provider store={store}> <Router> <Navbar /> <Routes>
@@ -50,6 +52,8 @@ return ( <Provider store={store}> <Router> <Navbar /> <Routes>
 <Route path="/products-single" element={<ProductCard />} />
 <Route path="/FilterSort" element={<FilterSort />} />
 <Route path="/unauthorized" element={<Unauthorized />} />
+<Route path="/googleSignUp" element={<SignupGoogle />} />
+
 
 
       {/* Protected admin/superadmin routes */}
@@ -70,6 +74,17 @@ return ( <Provider store={store}> <Router> <Navbar /> <Routes>
           <ManageProductItemsnew />
         </ProtectedRoute>
       } />
+
+{/* 
+      <Route
+  path="/admin/create-product"
+  element={
+    <PrivateAdminRoute>
+      <CreateProduct />
+    </PrivateAdminRoute>
+  }
+/> */}
+
     </Routes>
   </Router>
 </Provider>
