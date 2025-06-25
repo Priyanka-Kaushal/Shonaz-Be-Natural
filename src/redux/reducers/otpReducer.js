@@ -1,27 +1,32 @@
+
+import {
+  EMAIL,
+  OTP_INPUT,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE
+} from '../actions/actionType';
+
 const initialState = {
-    loading: false,
-    success: false,
-    error: null,
-    otp: null,
+  email: '',
+  otp: '',
+  user: JSON.parse(localStorage.getItem('user')) || null,
+  authToken: localStorage.getItem('authToken') || null,
+  error: null
 };
 
 const otpReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case 'SEND_OTP_REQUEST':
-            return { ...state, loading: true };
-        case 'SEND_OTP_SUCCESS':
-            return {
-                loading: false,
-                success: true,
-                otp: action.payload.otp,
-                error: null,
-            };
-        case 'SEND_OTP_FAIL':
-            return { ...state, loading: false, error: action.payload };
-        default:
-            return state;
-    }
+  switch (action.type) {
+    case EMAIL:
+      return { ...state, email: action.payload };
+    case OTP_INPUT:
+      return { ...state, otp: action.payload };
+    case LOGIN_SUCCESS:
+      return { ...state, user: action.payload, error: null };
+    case LOGIN_FAILURE:
+      return { ...state, error: action.payload };
+    default:
+      return state;
+  }
 };
-    
 
 export default otpReducer;

@@ -1,10 +1,8 @@
-import {EMAIL, PASSWORD, NAME, LASTNAME, } from './actionType';
+import {EMAIL, PASSWORD } from './actionType';
 
-
-
-export const email = (emailId) => ({
+export const email = (email) => ({
     type: EMAIL,
-    payload: emailId,
+    payload: email,
   });
 
   export const password_user = (password) => ({

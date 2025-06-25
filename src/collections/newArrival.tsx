@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Typography, Modal, Box } from "@mui/material";
 import BreadcrumbsNav from "../helper/bredacrumbNavigation.tsx";
-import ProductCardList from "../collections/prodComponent.tsx";
+import ProductCardThumbnails from "../collections/prodComponent.tsx";
 import productsDescription from "../Assets/DataFiles/productDescription.ts";
 import ProductOverview from "../Layouts/productOverview.tsx";
 
@@ -21,8 +21,6 @@ const NewArrivals: React.FC = () => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<any | null>(null);
   
-
-
   const handlePreviewOpen = (product: any) => {
     setSelectedProduct(product);
     setPreviewOpen(true);
@@ -36,14 +34,14 @@ const NewArrivals: React.FC = () => {
   
 
   return (
-    <>
+    <Box sx= {{alignItems: "center"}}>
       <BreadcrumbsNav />
 
-      <Typography variant="h4" gutterBottom sx={{ ml: "20px", mt: "20px" }}>
+      <Typography variant="h4" gutterBottom sx={{ ml: "20px", mt: "30px" }}>
         New Arrivals
       </Typography>
 
-      <ProductCardList
+      <ProductCardThumbnails
         productsDescription={productsDescription}
         onClick={handlePreviewOpen} 
       />
@@ -62,7 +60,7 @@ const NewArrivals: React.FC = () => {
           )}
         </Box>
       </Modal>
-    </>
+    </Box>
   );
 };
 

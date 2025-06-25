@@ -12,6 +12,10 @@ import {
 import { useNavigate } from "react-router-dom";
 import Gallery from "../collections/Gallery";
 import IntroductionPage from "./IntroductionPage";
+import ProductCardList from "../collections/prodComponent.tsx";
+import { useState } from "react";
+import productsDescription from "../Assets/DataFiles/productDescription.ts";
+
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -25,6 +29,21 @@ const HomePage = () => {
   // const discoverTheNewProducts = products.filter((product) =>
   //   product.tags.includes("Shop New In")
   // );
+
+  const [previewOpen, setPreviewOpen] = useState(false);
+    const [selectedProduct, setSelectedProduct] = useState("");
+  
+    const handlePreviewOpen = (product) => {
+
+      setSelectedProduct(product);
+      setPreviewOpen(true);
+    };
+  
+    const handlePreviewClose = () => {
+      setSelectedProduct(null);
+      setPreviewOpen(false);
+    };
+  
 
   return (
     <>
@@ -42,7 +61,6 @@ const HomePage = () => {
           image={BannerImage}
           alt="BannerImage"
           onClick={() => {
-            // Redirect logic for "New Arrivals" page
             navigate("/shop/new-arrivals");
           }}
         />
@@ -63,128 +81,13 @@ const HomePage = () => {
           SHOP NEW IN
         </Typography>
 
-        <Box display=" flex">
-          {/* Example Card for a product */}
-          <Card sx={{ maxWidth: 300, margin: "20px auto" }}>
-            <CardMedia
-              component="img"
-              sx={{
-                height: 200, // Adjust height for a better display
-                objectFit: "cover",
-              }}
-              image={BannerImage}
-              alt="Product Image"
-            />
-            <CardContent>
-              <Typography variant="h6" gutterBottom>
-                Card Title
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Price: $XX.XX
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button
-                size="small"
-                variant="contained"
-                color="primary"
-                fullWidth
-              >
-                Select Option
-              </Button>
-            </CardActions>
-          </Card>
+         {/*  i want only four products as per the hieghest rating and best selling product */}
+                 <ProductCardList
+                  productsDescription={productsDescription}
+                  onClick={handlePreviewOpen}
+                />
+        
 
-          <Card sx={{ maxWidth: 300, margin: "20px auto" }}>
-            <CardMedia
-              component="img"
-              sx={{
-                height: 200,
-                objectFit: "cover",
-              }}
-              image={BannerImage}
-              alt="Product Image"
-            />
-            <CardContent>
-              <Typography variant="h6" gutterBottom>
-                Card Title
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Price: $XX.XX
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button
-                size="small"
-                variant="contained"
-                color="primary"
-                fullWidth
-              >
-                Select Option
-              </Button>
-            </CardActions>
-          </Card>
-
-          <Card sx={{ maxWidth: 300, margin: "20px auto" }}>
-            <CardMedia
-              component="img"
-              sx={{
-                height: 200,
-                objectFit: "cover",
-              }}
-              image={BannerImage}
-              alt="Product Image"
-            />
-            <CardContent>
-              <Typography variant="h6" gutterBottom>
-                Card Title
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Price: $XX.XX
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button
-                size="small"
-                variant="contained"
-                color="primary"
-                fullWidth
-              >
-                Select Option
-              </Button>
-            </CardActions>
-          </Card>
-
-          <Card sx={{ maxWidth: 300, margin: "20px auto" }}>
-            <CardMedia
-              component="img"
-              sx={{
-                height: 200,
-                objectFit: "cover",
-              }}
-              image={BannerImage}
-              alt="Product Image"
-            />
-            <CardContent>
-              <Typography variant="h6" gutterBottom>
-                Card Title
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Price: $XX.XX
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button
-                size="small"
-                variant="contained"
-                color="primary"
-                fullWidth
-              >
-                Select Option
-              </Button>
-            </CardActions>
-          </Card>
-        </Box>
       </section>
 
       <section className="section-gallery-products">
@@ -228,126 +131,12 @@ const HomePage = () => {
 
         {/* SHOP New IN - 4 products visible  through filter the best selling product and show on the home page */}
         <Box display=" flex">
-          {/* Example Card for a product */}
-          <Card sx={{ maxWidth: 300, margin: "20px auto" }}>
-            <CardMedia
-              component="img"
-              sx={{
-                height: 200, // Adjust height for a better display
-                objectFit: "cover",
-              }}
-              image={BannerImage}
-              alt="Product Image"
-            />
-            <CardContent>
-              <Typography variant="h6" gutterBottom>
-                Card Title
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Price: $XX.XX
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button
-                size="small"
-                variant="contained"
-                color="primary"
-                fullWidth
-              >
-                Select Option
-              </Button>
-            </CardActions>
-          </Card>
-
-          <Card sx={{ maxWidth: 300, margin: "20px auto" }}>
-            <CardMedia
-              component="img"
-              sx={{
-                height: 200, // Adjust height for a better display
-                objectFit: "cover",
-              }}
-              image={BannerImage}
-              alt="Product Image"
-            />
-            <CardContent>
-              <Typography variant="h6" gutterBottom>
-                Card Title
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Price: $XX.XX
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button
-                size="small"
-                variant="contained"
-                color="primary"
-                fullWidth
-              >
-                Select Option
-              </Button>
-            </CardActions>
-          </Card>
-
-          <Card sx={{ maxWidth: 300, margin: "20px auto" }}>
-            <CardMedia
-              component="img"
-              sx={{
-                height: 200, // Adjust height for a better display
-                objectFit: "cover",
-              }}
-              image={BannerImage}
-              alt="Product Image"
-            />
-            <CardContent>
-              <Typography variant="h6" gutterBottom>
-                Card Title
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Price: $XX.XX
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button
-                size="small"
-                variant="contained"
-                color="primary"
-                fullWidth
-              >
-                Select Option
-              </Button>
-            </CardActions>
-          </Card>
-
-          <Card sx={{ maxWidth: 300, margin: "20px auto" }}>
-            <CardMedia
-              component="img"
-              sx={{
-                height: 200, // Adjust height for a better display
-                objectFit: "cover",
-              }}
-              image={BannerImage}
-              alt="Product Image"
-            />
-            <CardContent>
-              <Typography variant="h6" gutterBottom>
-                Card Title
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Price: $XX.XX
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button
-                size="small"
-                variant="contained"
-                color="primary"
-                fullWidth
-              >
-                Select Option
-              </Button>
-            </CardActions>
-          </Card>
+       
+{/* i want here only 4 products   the new best arraival prodcut through tags */}
+            <ProductCardList
+                  productsDescription={productsDescription}
+                  onClick={handlePreviewOpen}
+                />
         </Box>
       </section>
 

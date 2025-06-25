@@ -15,7 +15,7 @@ const NavigationButton: React.FC<NavigationButtonProps> = ({ label, to }) => {
 
   return (
     <Button
-      type="button" // <--- This prevents form submission
+      type="button" 
       variant="text"
       fullWidth
       sx={{ mb: 1 }}

@@ -1,223 +1,96 @@
-import React from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 
 const FooterComponent = () => {
+  const theme = useTheme();
+
   return (
     <Box
-    className="footerMainContainer"
-    sx={{
-      background: "#edffc0",
-      position: "absolute",
-      left: "0",  // No semicolon here
-      bottom: "0",
-      width: "100%",
-      display: "flex",
-      gap: 2,
-      height: "11%",
-      flexDirection: "column",
-      justifyContent: "center",
-      alignItems: "center",
-      padding: "20px 0px 0px 0px",
-      "@media (max-width: 600px)": {
-        gap: 2,
-        height: "auto",
-        padding: "10px 0",
-      },
-    }}
-  >
-  
-      {/* First Box: Links */}
+      sx={{
+        backgroundColor: "#f5f5f5",
+        position: "fixed",
+        left: 0,
+        bottom: 0,
+        width: "100%",
+        fontFamily: theme.typography.fontFamily,
+        fontSize: "14px",
+        borderTop: "1px solid #ccc",
+        zIndex: 1000,
+        pt: 2,
+      }}
+    >
+      {/* Top Links */}
       <Box
-      className = 'footerSecOne'
         sx={{
           display: "flex",
-          gap: 2,
+          flexWrap: "wrap",
           justifyContent: "center",
-          alignItems: "center",
-          flexWrap: "wrap", 
-          fontSize: { xs: '1rem', sm: '1.5rem', md: '2rem' },
+          gap: 2,
+          px: 2,
+          mb: 1,
         }}
       >
-        <Typography className = 'footerSecOne'
-          style={{
-            color: "black",
-            cursor: "pointer",
-            textDecoration: "none",
-            fontSize: "14px",
-          }}
-        >
-          CONTACT
-        </Typography>
-        <Typography className = 'footerSecOne'
-          style={{
-            color: "black",
-            cursor: "pointer",
-            textDecoration: "none",
-            fontSize: "14px",
-          }}
-        >
-          CUSTOMER SERVICE
-        </Typography>
-        <Typography className = 'footerSecOne'
-          style={{
-            color: "black",
-            cursor: "pointer",
-            textDecoration: "none",
-            fontSize: "14px",
-          }}
-        >
-          ECOLOGI
-        </Typography>
-        <Typography className = 'footerSecOne'
-          style={{
-            color: "black",
-            cursor: "pointer",
-            textDecoration: "none",
-            fontSize: "14px",
-          }}
-        >
-          FIND STORE
-        </Typography>
-        <Typography className = 'footerSecOne'
-          style={{
-            color: "black",
-            cursor: "pointer",
-            textDecoration: "none",
-            fontSize: "14px",
-          }}
-        >
-          RETURNS
-        </Typography>
+
+        <Link to="/privacy-policy" style={{ color: "black", textDecoration: "none", fontSize: "14px" }}>
+           RETURNS
+          </Link>
+          <Link to="/contact-page" style={{ color: "black", textDecoration: "none", fontSize: "14px" }}>
+            CONTACT
+          </Link>
+          <Link to="/Shipping-Deliveries-Policy" style={{ color: "black", textDecoration: "none", fontSize: "14px" }}>
+            SHIPPING POLICY
+          </Link>
       </Box>
 
-      {/* Second Box: Social Links and Footer Info */}
+      {/* Bottom Section */}
       <Box
-        className="secFootersec footerSecOne"
         sx={{
-          position: "static",
-          bottom: 0,
           width: "100%",
+          backgroundColor: "#fff",
           display: "flex",
+          flexDirection: { xs: "column", sm: "row" },
           justifyContent: "space-between",
           alignItems: "center",
-          padding: 2,
-          backgroundColor: "white",
-          boxShadow: "none",
-          flexDirection: {
-            xs: "column", // For smaller screens, stack items vertically
-            sm: "row", // For larger screens, use row layout
-          },
           gap: 2,
+          px: 2,
+          py: 1,
+          textAlign: { xs: "center", sm: "left" },
         }}
       >
         {/* Social Links */}
-        <Box  
-        className="secFootersec footerSecOne"
-          sx={{
-            display: "flex",
-            gap: 2,
-            justifyContent: {
-              xs: "center", 
-              sm: "flex-start",
-            },
-            flexWrap: "wrap", // Wrap links in smaller screens
-          }}
-        >
-          <a
-          className="secFootersec footerSecOne"
-            href="https://www.facebook.com/shonazBeNatural/"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              color: "black",
-              cursor: "pointer",
-              textDecoration: "none",
-              fontSize: "14px",
-            }}
-          >
-            FACEBOOK
-          </a>
-          <a
-          className="secFootersec footerSecOne"
-            href="https://www.instagram.com/shonazbenatural/"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              color: "black",
-              cursor: "pointer",
-              textDecoration: "none",
-              fontSize: "14px",
-            }}
-          >
-            INSTAGRAM
-          </a>
-          <a 
-          className="secFootersec footerSecOne"
-            href="https://www.amazon.in/SHONAZ-BENATURAL-Organic-Cotton-Natural/dp/B0CQVCBRBT"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              color: "black",
-              cursor: "pointer",
-              textDecoration: "none",
-              fontSize: "14px",
-            }}
-          >
-            AMAZON
-          </a>
+        <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap", justifyContent: { xs: "center", sm: "flex-start" } }}>
+          {[
+            { label: "FACEBOOK", url: "https://www.facebook.com/shonazBeNatural/" },
+            { label: "INSTAGRAM", url: "https://www.instagram.com/shonazbenatural/" },
+            { label: "AMAZON", url: "https://www.amazon.in/SHONAZ-BENATURAL-Organic-Cotton-Natural/dp/B0CQVCBRBT" },
+          ].map((item, index) => (
+            <a
+              key={index}
+              href={item.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                color: "black",
+                textDecoration: "none",
+                fontSize: "14px",
+              }}
+            >
+              {item.label}
+            </a>
+          ))}
         </Box>
 
-        {/* Copyright Info */}
-        <Link
-          to="/"
-          className="secFootersec footerSecOne"
-          style={{
-            color: "black",
-            cursor: "pointer",
-            textDecoration: "none",
-            fontSize: "14px",
-          }}
-        >
+        {/* Copyright */}
+        <Typography sx={{ fontSize: "14px" }}>
           © 2024 Copyright: All Rights Reserved.
-        </Link>
+        </Typography>
 
-        {/* Privacy and Terms */}
-        <Box
-        className="secFootersec footerSecOne"
-          sx={{
-            display: "flex",
-            gap: 2,
-            paddingInline: 4,
-            justifyContent: {
-              xs: "center", // Center on smaller screens
-              sm: "flex-end",
-            },
-            flexWrap: "wrap", // Wrap links for smaller screens
-          }}
-        >
-          <Link
-          className="secFootersec footerSecOne"
-            to="/terms-of-service"
-            style={{
-              color: "black",
-              cursor: "pointer",
-              textDecoration: "none",
-              fontSize: "14px",
-            }}
-          >
+        {/* Policy Links */}
+        <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap", justifyContent: { xs: "center", sm: "flex-end" } }}>
+          <Link to="/privacy-policy" style={{ color: "black", textDecoration: "none", fontSize: "14px" }}>
             PRIVACY POLICY
           </Link>
-          <Link
-            to="/privacy-policy"
-            
-            style={{
-              color: "black",
-              cursor: "pointer",
-              textDecoration: "none",
-              fontSize: "14px",
-            }}
-          >
+          <Link to="/Terms-Of-Service" style={{ color: "black", textDecoration: "none", fontSize: "14px" }}>
             TERMS OF USE
           </Link>
         </Box>

@@ -41,64 +41,6 @@ const Navbar = () => {
   const handleOpenSearchModal = () => setOpenSearchModal(true);
   const handleCloseSearchModal = () => setOpenSearchModal(false);
 
-  // const DrawerList = (anchor) => (
-  //   <Box
-  //     className="leftDrawerMenu rightdrawerCheckOut"
-  //     sx={{
-  //       width: 400,
-
-  //       textAlign: "center",
-  //       padding: "60px 0",
-  //       height: "100%",
-  //       backgroundColor: "rgba(255,255,255,0.8)",
-  //       backdropFilter: "blur(6px)",
-  //       zIndex: 900,
-  //     }}
-  //     role="presentation"
-  //     onClick={toggleDrawer(anchor, false)}
-  //     onKeyDown={toggleDrawer(anchor, false)}
-  //   >
-  //     {anchor === "right" ? (
-  //       <>
-  //         <Typography sx={{ mb: "12px" }}>Your Cart Is empty</Typography>
-  //         <Button variant="contained" color="primary" onClick={handleStartShopping}>
-  //           START SHOPPING
-  //         </Button>
-  //       </>
-  //     ) : (
-  //       <>
-  //         {drawerType === "shop" && (
-  //           <>
-  //             <Link to="/ethnic-wear" style={linkStyle}>Ethnic Wear</Link>
-  //             <Link to="/indian-western" style={linkStyle}>Indian Western Wear</Link>
-  //             <Link to="/sleepwear" style={linkStyle}>Sleepwear</Link>
-  //             <Link to="/accessories" style={linkStyle}>Accessories</Link>
-  //             <Box
-  //               sx={{
-  //                 display: "flex",
-  //                 gap: "10px",
-  //                 justifyContent: "center",
-  //                 flexWrap: "wrap",
-  //                 marginTop: "20px",
-  //               }}
-  //             >
-  //               <CardMedia component="img" sx={{ width: "150px", height: "150px" }} image={BannerImage} />
-  //               <CardMedia component="img" sx={{ width: "150px", height: "150px" }} image={BannerImage} />
-  //             </Box>
-  //           </>
-  //         )}
-  //         {drawerType === "new" && (
-  //           <Link to="/new-arrivals" style={linkStyle}>New - Arrivals</Link>
-  //         )}
-  //         {drawerType === "collection" && (
-  //           <Link to="/collection" style={linkStyle}>Collection</Link>
-  //         )}
-  //       </>
-  //     )}
-  //   </Box>
-  // );
-
-
   const DrawerList = (anchor) => (
     <Box
       className="leftDrawerMenu rightdrawerCheckOut"
@@ -146,6 +88,7 @@ const Navbar = () => {
               <Link to="/indian-western" style={linkStyle}>Indian Western Wear</Link>
               <Link to="/sleepwear" style={linkStyle}>Sleepwear</Link>
               <Link to="/accessories" style={linkStyle}>Accessories</Link>
+              <Link to= "/product-page" style = {linkStyle}>Popular Products</Link>
               <Box
                 sx={{
                   display: "flex",
@@ -203,24 +146,23 @@ const Navbar = () => {
           </Box>
 
           <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-           <Button
-  onClick={handleOpenSearchModal}
-  sx={{
-    minWidth: "unset",
-    color: "black",
-    fontWeight: "bold",
-    fontSize: "14px",
-    textTransform: "none", // so it doesn't uppercase the text
-    padding: 0, // remove extra padding if needed
-  }}
->
-  {isMobile ? (
-    <SearchIcon sx={{ color: "black" }} />
-  ) : (
-    "Search"
-  )}
-</Button>
-
+            <Button
+              onClick={handleOpenSearchModal}
+              sx={{
+                minWidth: "unset",
+                color: "black",
+                fontWeight: "bold",
+                fontSize: "14px",
+                textTransform: "none", // so it doesn't uppercase the text
+                padding: 0, // remove extra padding if needed
+              }}
+            >
+              {isMobile ? (
+                <SearchIcon sx={{ color: "black" }} />
+              ) : (
+                "Search"
+              )}
+            </Button>
 
             {!isMobile && (
               <Link to="/account/login" style={headerLink}>ACCOUNT</Link>

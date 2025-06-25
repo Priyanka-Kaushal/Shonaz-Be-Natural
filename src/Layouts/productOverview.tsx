@@ -1,6 +1,6 @@
 import { Box, Typography, Button } from "@mui/material";
 import React from 'react';
-// import { useCart } from '../context/CartContext'; // adjust path
+import { useNavigate } from "react-router-dom";
 
 interface ProductOverviewProps {
   product: any;
@@ -8,13 +8,13 @@ interface ProductOverviewProps {
 }
 
 const ProductOverview: React.FC<ProductOverviewProps> = ({ product, onClose }) => {
-  // const { addToCart } = useCart();
+  const navigate = useNavigate();
 
   if (!product) return null;
 
   const AddToCartProduct = () => {
-    // addToCart(product);
-    onClose(); // Optional: close modal after adding
+    onClose();
+    navigate("/view-cart");
   };
 
   return (
@@ -44,21 +44,19 @@ const ProductOverview: React.FC<ProductOverviewProps> = ({ product, onClose }) =
           <Typography variant="body1" mb={3}>Quantity: {product.quantity}</Typography>
         </Box>
 
-        <Box>
-          <Button
-            variant="contained"
-            fullWidth
-            sx={{
-              backgroundColor: "#000",
-              color: "#fff",
-              mt: 3,
-              ":hover": { backgroundColor: "#333" },
-            }}
-            onClick={AddToCartProduct}
-          >
-            Add to Cart
-          </Button>
-        </Box>
+        <Button
+          variant="contained"
+          fullWidth
+          sx={{
+            backgroundColor: "#000",
+            color: "#fff",
+            mt: 3,
+            ":hover": { backgroundColor: "#333" },
+          }}
+          onClick={AddToCartProduct}
+        >
+          Add to Cart
+        </Button>
       </Box>
     </Box>
   );

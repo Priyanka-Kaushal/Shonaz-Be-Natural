@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Card, CardActionArea, CardContent, CardMedia, Typography } from '@mui/material';
 
-const ProductCardList = ({ productsDescription, onClick }) => {
+const ProductCardThumbnails = ({ productsDescription, onClick }) => {
   return (
     <Box style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
       {productsDescription.map((product) => (
@@ -29,4 +29,4 @@ const ProductCardList = ({ productsDescription, onClick }) => {
   );
 };
 
-export default ProductCardList;
+export default ProductCardThumbnails;

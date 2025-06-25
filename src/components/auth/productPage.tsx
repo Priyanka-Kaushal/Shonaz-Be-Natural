@@ -39,7 +39,7 @@ const ProductPage: React.FC = () => {
               <CardMedia
                 component="img"
                 height="180"
-                image={product.image[1]} // Using first image
+                image={product.image[1]} 
                 alt={product.productName}
               />
               <CardContent>
