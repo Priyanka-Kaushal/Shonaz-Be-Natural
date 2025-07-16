@@ -20,7 +20,7 @@ const AccountPage = () => {
         <Typography variant="body1">user@example.com</Typography>
 
         <Link component="button" onClick={() => navigate("/account/addresses")} sx={{ mt: 1, display: "block" }}>
-          View addresses (1)
+          View addresses
         </Link>
 
         <Button variant="outlined" onClick={handleAddAddress} sx={{ mt: 2 }}>

@@ -49,7 +49,7 @@ const [openSize, setOpenSize] = React.useState(false);
  
   return (
     <>
-      {/* Filter Button */}
+
       <Box sx={styles.buttonWrapper}>
         <Button sx={styles.filterButton} onClick={toggleSidebar} aria-label="Open Filters">
           <svg width="22" height="22" viewBox="0 0 18 18">
@@ -58,7 +58,7 @@ const [openSize, setOpenSize] = React.useState(false);
         </Button>
       </Box>
 
-      {/* Sidebar */}
+      
       <Box sx={{ ...styles.sidebar, right: isOpen ? '0' : '-300px' }}>
         <Button sx={styles.closeButton} onClick={toggleSidebar}>Close</Button>
         <Typography variant="h4" gutterBottom>Filter Options</Typography>
@@ -98,7 +98,7 @@ const [openSize, setOpenSize] = React.useState(false);
     </ListSubheader>
   }
 >
-  {/* Availability */}
+
   <ListItemButton onClick={handleClickAvailability}>
     <ListItemText primary="Availability" />
     {openAvailability ? <ExpandLess /> : <ExpandMore />}
@@ -115,7 +115,6 @@ const [openSize, setOpenSize] = React.useState(false);
     </List>
   </Collapse>
 
-  {/* Size */}
   <ListItemButton onClick={handleClickSize}>
     <ListItemText primary="Size" />
     {openSize ? <ExpandLess /> : <ExpandMore />}

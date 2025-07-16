@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import BannerImage from "../Assets/Images/BannerImage.jpg";
 
 
-// Reusable Styled Components for Flexbox Layout with Custom Margins
 const FlexBox = styled(Box)(({ theme }) => ({
   display: "flex",
   alignItems: "center",
@@ -13,18 +12,17 @@ const FlexBox = styled(Box)(({ theme }) => ({
   flexDirection: "row",
   gap: theme.spacing(4),
   width: "100%",
-  margin: "50px 80px 50px 80px", // Top, Right, Bottom, Left margin
+  margin: "50px 80px 50px 80px", 
   [theme.breakpoints.down("md")]: {
-    margin: "50px 60px", // Less margin for medium screens
+    margin: "50px 60px", 
   },
   [theme.breakpoints.down("sm")]: {
-    flexDirection: "column", // Stack elements on small screens
-    margin: "30px 20px", // Compact margins for small screens
+    flexDirection: "column", 
+    margin: "30px 20px", 
     textAlign: "center",
   },
 }));
 
-// Styled Container for Image Section
 const ImageContainer = styled(Box)(({ theme }) => ({
   position: "relative",
   width: "33%",
@@ -35,7 +33,6 @@ const ImageContainer = styled(Box)(({ theme }) => ({
   },
 }));
 
-// Styled Text Section
 const TextContainer = styled(Box)(({ theme }) => ({
   width: "40%",
   textAlign: "left",
@@ -50,7 +47,6 @@ const IntroductionPage = () => {
 
   return (
     <FlexBox>
-      {/* Overlapping Images */}
       <ImageContainer>
         <CardMedia
           component="img"
@@ -81,31 +77,52 @@ const IntroductionPage = () => {
         />
       </ImageContainer>
 
-      {/* Text Section */}
+    
       <TextContainer>
-        <Typography variant="h4" sx={{ mb: 2, fontWeight: "bold",  pl: '40px' }}>
-          Introducing Shonaz
-        </Typography>
-        <Typography variant="body1" sx={{ lineHeight: 1.6, color: "#555", mb: 3 }}>
-          Shonaz is your ultimate destination for premium products that bring
-          style and convenience to your life. Explore our exclusive collection
-          designed to inspire and elevate your daily experience.
-        </Typography>
+  <Typography
+    variant="h4"
+    sx={{
+      fontWeight: "bold",
+      pl: '40px',
+      mb: 1,
+      letterSpacing: "0.5px",
+    }}
+  >
+    Introducing Shonaz
+  </Typography>
 
-        <Link
-          onClick={() => navigate("/SHOPACCESSORIES")}
-          sx={{
-            color: "black",
-            textDecoration: "underline",
-            fontWeight: "bold",
-            fontSize: "16px",
-            cursor: "pointer",
-            "&:hover": { color: "gray" },
-          }}
-        >
-          DISCOVER THE COLLECTION
-        </Link>
-      </TextContainer>
+  <Typography
+    variant="body1"
+    sx={{
+      lineHeight: 1.7,
+      pl: '40px',
+      pr: '40px',
+      mb: 2,
+      maxWidth: "700px",
+    }}
+  >
+    Shonaz is your ultimate destination for premium products that bring style and convenience to your life. Explore our exclusive collection designed to inspire and elevate your daily experience.
+  </Typography>
+
+  <Link
+    onClick={() => navigate("/collection")}
+    sx={{
+      color: "#000",
+      textDecoration: "underline",
+      fontWeight: "bold",
+      fontSize: "16px",
+      cursor: "pointer",
+      pl: '40px',
+      "&:hover": {
+        color: "#2e7d32", 
+        textDecoration: "none",
+      },
+    }}
+  >
+    DISCOVER THE COLLECTION
+  </Link>
+</TextContainer>
+
     </FlexBox>
   );
 };

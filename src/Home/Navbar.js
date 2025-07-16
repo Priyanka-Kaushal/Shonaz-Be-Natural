@@ -22,17 +22,24 @@ const Navbar = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
   const [openDrawer, setOpenDrawer] = useState({ left: false, right: false });
   const [drawerType, setDrawerType] = useState(null);
+
   const navigate = useNavigate();
 
   const handleStartShopping = () => {
     navigate("/shop/new-arrivals");
   };
 
-  const toggleDrawer = (anchor, open, type = null) => (event) => {
-    if (event?.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) return;
-    setDrawerType(type);
-    setOpenDrawer({ ...openDrawer, [anchor]: open });
-  };
+  const toggleDrawer =
+    (anchor, open, type = null) =>
+    (event) => {
+      if (
+        event?.type === "keydown" &&
+        (event.key === "Tab" || event.key === "Shift")
+      )
+        return;
+      setDrawerType(type);
+      setOpenDrawer({ ...openDrawer, [anchor]: open });
+    };
 
   const toggleMobileMenu = (state) => () => {
     setMobileMenu(state);
@@ -56,7 +63,7 @@ const Navbar = () => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        gap: 2, // space between text and button
+        gap: 2,
       }}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
@@ -64,7 +71,9 @@ const Navbar = () => {
     >
       {anchor === "right" ? (
         <>
-          <Typography sx={{ mb: 1, fontWeight: "bold" }}>Your Cart Is Empty</Typography>
+          <Typography sx={{ mb: 1, fontWeight: "bold" }}>
+            Your Cart Is Empty
+          </Typography>
           <Button
             variant="contained"
             sx={{
@@ -84,11 +93,26 @@ const Navbar = () => {
         <>
           {drawerType === "shop" && (
             <>
-              <Link to="/ethnic-wear" style={linkStyle}>Ethnic Wear</Link>
-              <Link to="/indian-western" style={linkStyle}>Indian Western Wear</Link>
-              <Link to="/sleepwear" style={linkStyle}>Sleepwear</Link>
-              <Link to="/accessories" style={linkStyle}>Accessories</Link>
-              <Link to= "/product-page" style = {linkStyle}>Popular Products</Link>
+              <Link to="/collection/indian-western" style={linkStyle}>
+                Indian Western Wear
+              </Link>
+              <Link to="/collection/sleepwear" style={linkStyle}>
+                Sleepwear
+              </Link>
+
+              <Link to="/collection/ethnic-wear" style={linkStyle}>
+                Ethnic Wear
+              </Link>
+              <Link to="/collectionsleepwear" style={linkStyle}>
+                Sleepwear
+              </Link>
+              <Link to="/collection/accessories" style={linkStyle}>
+                Accessories
+              </Link>
+              <Link to="/collection/popular-products" style={linkStyle}>
+                Popular Products
+              </Link>
+
               <Box
                 sx={{
                   display: "flex",
@@ -98,16 +122,28 @@ const Navbar = () => {
                   marginTop: "20px",
                 }}
               >
-                <CardMedia component="img" sx={{ width: "150px", height: "150px" }} image={BannerImage} />
-                <CardMedia component="img" sx={{ width: "150px", height: "150px" }} image={BannerImage} />
+                <CardMedia
+                  component="img"
+                  sx={{ width: "150px", height: "150px" }}
+                  image={BannerImage}
+                />
+                <CardMedia
+                  component="img"
+                  sx={{ width: "150px", height: "150px" }}
+                  image={BannerImage}
+                />
               </Box>
             </>
           )}
           {drawerType === "new" && (
-            <Link to="/new-arrivals" style={linkStyle}>New - Arrivals</Link>
+            <Link to="/collection/new-arrivals" style={linkStyle}>
+              New - Arrivals
+            </Link>
           )}
           {drawerType === "collection" && (
-            <Link to="/collection" style={linkStyle}>Collection</Link>
+            <Link to="/collection/collection" style={linkStyle}>
+              Collection
+            </Link>
           )}
         </>
       )}
@@ -116,31 +152,63 @@ const Navbar = () => {
 
   const MobileMenu = (
     <Box className="menuForMobile" sx={{ padding: 2 }}>
-      <Link to="/shop" style={linkStyle}>SHOP</Link>
-      <Link to="/new" style={linkStyle}>NEW</Link>
-      <Link to="/collection" style={linkStyle}>COLLECTION</Link>
+      <Link to="/shop" style={linkStyle}>
+        SHOP
+      </Link>
+      <Link to="/collection/new-arrivals" style={linkStyle}>
+        NEW
+      </Link>
+      <Link to="collection/collection" style={linkStyle}>
+        COLLECTION
+      </Link>
     </Box>
   );
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed" sx={{ backgroundColor: "white", boxShadow: "none", zIndex: 1201 }}>
+      <AppBar
+        position="fixed"
+        sx={{ backgroundColor: "white", boxShadow: "none", zIndex: 1201 }}
+      >
         <Toolbar sx={{ justifyContent: "space-between" }}>
-          {/* Left Nav Links */}
           <Box sx={{ display: { xs: "none", md: "flex" }, gap: 2 }}>
-            <Link onClick={toggleDrawer("left", true, "shop")} style={headerLink}>SHOP</Link>
-            <Link onClick={toggleDrawer("left", true, "new")} style={headerLink}>NEW</Link>
-            <Link onClick={toggleDrawer("left", true, "collection")} style={headerLink}>COLLECTION</Link>
+            <Link
+              onClick={toggleDrawer("left", true, "shop")}
+              style={headerLink}
+            >
+              SHOP
+            </Link>
+            <Link
+              onClick={toggleDrawer("left", true, "new")}
+              style={headerLink}
+            >
+              NEW
+            </Link>
+            <Link
+              onClick={toggleDrawer("left", true, "collection")}
+              style={headerLink}
+            >
+              COLLECTION
+            </Link>
           </Box>
 
-          {/* Mobile Menu */}
-          <IconButton sx={{ display: { xs: "flex", md: "none" } }} onClick={toggleMobileMenu(true)}>
+          <IconButton
+            sx={{ display: { xs: "flex", md: "none" } }}
+            onClick={toggleMobileMenu(true)}
+          >
             <MenuIcon />
           </IconButton>
 
-          {/* Center Brand */}
           <Box>
-            <Link to="/" style={{ textDecoration: "none", fontWeight: "bold", color: "black", fontSize: "20px" }}>
+            <Link
+              to="/"
+              style={{
+                textDecoration: "none",
+                fontWeight: "bold",
+                color: "black",
+                fontSize: "20px",
+              }}
+            >
               SHONAZ BE NATURAL
             </Link>
           </Box>
@@ -153,28 +221,26 @@ const Navbar = () => {
                 color: "black",
                 fontWeight: "bold",
                 fontSize: "14px",
-                textTransform: "none", // so it doesn't uppercase the text
-                padding: 0, // remove extra padding if needed
+                textTransform: "none",
+                padding: 0,
               }}
             >
-              {isMobile ? (
-                <SearchIcon sx={{ color: "black" }} />
-              ) : (
-                "Search"
-              )}
+              {isMobile ? <SearchIcon sx={{ color: "black" }} /> : "Search"}
             </Button>
 
             {!isMobile && (
-              <Link to="/account/login" style={headerLink}>ACCOUNT</Link>
+              <Link to="/account/login" style={headerLink}>
+                ACCOUNT
+              </Link>
             )}
 
-            <Link onClick={toggleDrawer("right", true)} style={headerLink}>CART</Link>
+            <Link onClick={toggleDrawer("right", true)} style={headerLink}>
+              CART
+            </Link>
           </Box>
-
         </Toolbar>
       </AppBar>
 
-      {/* Left Drawer */}
       <Drawer
         anchor="left"
         open={openDrawer.left}
@@ -191,7 +257,6 @@ const Navbar = () => {
         {DrawerList("left")}
       </Drawer>
 
-      {/* Right Drawer */}
       <Drawer
         anchor="right"
         open={openDrawer.right}
@@ -207,12 +272,9 @@ const Navbar = () => {
         {DrawerList("right")}
       </Drawer>
 
-      {/* Mobile Drawer */}
       <Drawer anchor="left" open={mobileMenu} onClose={toggleMobileMenu(false)}>
         {MobileMenu}
       </Drawer>
-
-      {/* Search Modal */}
       <SearchPage open={openSearchModal} handleClose={handleCloseSearchModal} />
     </Box>
   );
@@ -220,7 +282,6 @@ const Navbar = () => {
 
 export default Navbar;
 
-// Styles
 const headerLink = {
   textDecoration: "none",
   color: "black",

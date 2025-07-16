@@ -242,7 +242,7 @@ const LoginUser = () => {
         // Redirect based on role
         const userRole = data?.data?.user?.role;
         if (userRole === "admin" || userRole === "superadmin") {
-          navigate("/dashboard/create-product");
+          navigate("/dashboard/manageProduct");
         } else {
           navigate("/");
         }

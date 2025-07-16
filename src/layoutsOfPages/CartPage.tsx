@@ -12,61 +12,56 @@ import {
   MenuItem,
   Divider,
   FormHelperText,
+  TextField
 } from "@mui/material";
-import WatchImage from "../Assets/Images/weed2.jpg";
 import { useNavigate } from "react-router-dom";
 
 const CartPage = () => {
   const navigate = useNavigate();
+ const [products, setProducts] = useState<any[]>([]);
+ 
+  const [cartItems, setCartItems] = useState(() => {
+    const stored = localStorage.getItem("cartItems");
+    return stored ? JSON.parse(stored) : [];
+  });
 
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      name: "Product Name",
-      size: "Medium",
-      price: 62.0,
-      quantity: 1,
-      image: WatchImage,
-      available: 2,
-      deliveryDate: "Dec 23",
-      error: "",
-    },
-  ]);
-
-  const handleQuantityChange = (e, itemId) => {
-    const updatedItems = cartItems.map((item) => {
-      if (item.id === itemId) {
+  const handleQuantityChange = (e, prodId) => {
+    const updatedItems = cartItems.map((prod) => {
+      if (prod._id === prodId) {
         const selectedQty = parseInt(e.target.value);
-        if (selectedQty > item.available) {
+        if (selectedQty > prod.available) {
           return {
-            ...item,
-            quantity: item.available,
-            error: `Sorry, only ${item.available} available.`,
+            ...prod,
+            quantity: prod.available,
+            error: `Sorry, only ${prod.available} available.`,
           };
         } else {
-          return { ...item, quantity: selectedQty, error: "" };
+          return { ...prod, quantity: selectedQty, error: "" };
         }
       }
-      return item;
+      return prod;
     });
+
     setCartItems(updatedItems);
+    localStorage.setItem("cartItems", JSON.stringify(updatedItems));
   };
 
-  const handleRemove = (itemId) => {
-    setCartItems(cartItems.filter((item) => item.id !== itemId));
+  const handleRemove = (prodId) => {
+    const updated = cartItems.filter((prod) => prod._id !== prodId);
+    setCartItems(updated);
+    localStorage.setItem("cartItems", JSON.stringify(updated));
   };
 
-  const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const subtotal = cartItems.reduce((sum, prod) => sum + prod.price * prod.quantity, 0);
   const vat = 8;
   const total = subtotal + vat;
 
   const addToCheckout = () => {
-    navigate("/account/login");
+    navigate("");
   };
 
   return (
     <Box sx={{ p: 4 }}>
-      {/* Header */}
       <Box
         sx={{
           textAlign: "center",
@@ -77,19 +72,18 @@ const CartPage = () => {
         }}
       >
         <Typography variant="h4" gutterBottom>
-          Your cart total is ${total.toFixed(2)}
+          Your cart total is ₹{total.toFixed(2)}
         </Typography>
         <Button
           variant="contained"
           color="success"
           sx={{ width: "30%", mt: 1 }}
-           onClick={addToCheckout}
+          onClick={addToCheckout}
         >
           Check Out
         </Button>
       </Box>
 
-      {/* Cart Items */}
       <Typography variant="h5" mb={3}>
         Shopping Cart
       </Typography>
@@ -97,54 +91,58 @@ const CartPage = () => {
       <TableContainer>
         <Table>
           <TableBody>
-            {cartItems.map((item) => (
-              <TableRow key={item.id}>
+            {cartItems.map((product) => (
+              <TableRow key={product._id}>
                 <TableCell sx={{ width: "150px" }}>
                   <img
-                    src={item.image}
-                    alt={item.name}
+                    src={product.image}
+                    alt={product.title}
                     width={150}
                     height={150}
                     style={{ borderRadius: 8, objectFit: "cover" }}
+                    onError={(e) => (e.currentTarget.src = "/default.jpg")}
                   />
                 </TableCell>
 
                 <TableCell>
-                  <Typography variant="subtitle1">{item.name}</Typography>
-                  <Typography variant="body2">{item.size}</Typography>
+                  <Typography variant="subtitle1">{product.title}</Typography>
+                  <Typography variant="body2">Size: {product.sizes || "N/A"}</Typography>
                   <Box mt={1}>
                     <Typography variant="body2">📦 Order today.</Typography>
                     <Typography variant="body2">
-                      🚚 Delivery by {item.deliveryDate}
+                      🚚 Delivery by {product.deliveryDate || "in 7 days"}
                     </Typography>
-                    <Typography variant="body2">
-                      📦 Only {item.available} Available.
+
+                    <Typography variant="body2" mb={1}>
+                      📦 Available Stock:{product.available}
                     </Typography>
+
+                    <Typography variant="body2" mb={1}>
+                      🛒 Selected Quantity: {product.quantity}
+                    </Typography>
+
                   </Box>
                 </TableCell>
-
                 <TableCell>
-                  <Select
-                    value={item.quantity}
-                    onChange={(e) => handleQuantityChange(e, item.id)}
-                    size="small"
+                  <TextField
+                    label="Quantity"
+                    name="quantity"
+                    type="number"
+                    value={product.quantity}
+                    onChange={(e) => handleQuantityChange(e, product._id)}
                     sx={{ width: 80 }}
-                    error={!!item.error}
-                  >
-                    {[...Array(Math.min(item.available, 5)).keys()].map((i) => (
-                      <MenuItem key={i + 1} value={i + 1}>
-                        {i + 1}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                  {item.error && (
-                    <FormHelperText error>{item.error}</FormHelperText>
+                    error={!!product.error}
+                    inputProps={{ min: 1, max: product.available }}
+                  />
+                  {product.error && (
+                    <FormHelperText error>{product.error}</FormHelperText>
                   )}
                 </TableCell>
 
+
                 <TableCell align="left">
-                  <Typography>${item.price.toFixed(2)}</Typography>
-                  <Button color="error" onClick={() => handleRemove(item.id)}>
+                  <Typography>₹{product.price.toFixed(2)}</Typography>
+                  <Button color="error" onClick={() => handleRemove(product._id)}>
                     Remove
                   </Button>
                 </TableCell>
@@ -154,7 +152,6 @@ const CartPage = () => {
         </Table>
       </TableContainer>
 
-      {/* Summary Section */}
       <Box
         sx={{
           ml: "auto",
@@ -171,7 +168,7 @@ const CartPage = () => {
 
         <Box sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
           <Typography>Subtotal</Typography>
-          <Typography>${subtotal.toFixed(2)}</Typography>
+          <Typography>₹{subtotal.toFixed(2)}</Typography>
         </Box>
         <Box sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
           <Typography>Shipping</Typography>
@@ -179,7 +176,7 @@ const CartPage = () => {
         </Box>
         <Box sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
           <Typography>VAT</Typography>
-          <Typography>${vat.toFixed(2)}</Typography>
+          <Typography>₹{vat.toFixed(2)}</Typography>
         </Box>
         <Divider sx={{ my: 2 }} />
         <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
