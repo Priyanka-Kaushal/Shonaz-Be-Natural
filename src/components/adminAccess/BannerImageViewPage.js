@@ -13,6 +13,9 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import BannerImageModal from "./BannerImageModal";
 import LazyLoad from "react-lazyload";
+import theme from "../../styles/theme";
+import { useTheme } from "@emotion/react";
+
 
 const modalStyle = {
   position: "absolute",
@@ -23,12 +26,13 @@ const modalStyle = {
   bgcolor: "background.paper",
   boxShadow: 24,
   p: 4,
-  borderRadius: 3,
+   borderRadius: theme.shape.borderRadius,
   maxHeight: "85vh",
   overflowY: "auto",
 };
 
 const Placeholder = () => (
+
   <Box
     sx={{
       width: "100%",
@@ -111,6 +115,8 @@ const ImageViewPage = () => {
     }
   };
 
+
+  const theme = useTheme();
   return (
     <Box sx={{ width: "90%", margin: "auto", mt: 8, mb: 12 }}>
       <Typography variant="h5" textAlign="center" mb={4}>
@@ -162,7 +168,7 @@ const ImageViewPage = () => {
             sx={{
               width: 300,
               border: "1px solid #ccc",
-              borderRadius: 2,
+               borderRadius: theme.shape.borderRadius,
               overflow: "hidden",
               boxShadow: 3,
               display: "flex",
@@ -204,7 +210,7 @@ const ImageViewPage = () => {
                   backgroundColor: "green",
                   color: "#fff",
                   padding: "2px 6px",
-                  borderRadius: "4px",
+                   borderRadius: theme.shape.borderRadius,
                   fontSize: "0.75rem",
                   fontWeight: "bold",
                 }}

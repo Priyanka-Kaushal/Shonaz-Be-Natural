@@ -6,6 +6,7 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
+  useTheme,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { motion } from "framer-motion";
@@ -18,6 +19,8 @@ const fadeInUp = {
 };
 
 const LeftContentSection = () => {
+  const theme = useTheme();
+
   return (
     <Accordion sx={{ background: "transparent", boxShadow: "none" }}>
       <AccordionSummary
@@ -91,7 +94,7 @@ const LeftContentSection = () => {
                 <Box
                   className="cont-4"
                   sx={{
-                    backgroundColor: "#D8B46E",
+                    backgroundColor: "#FAF5EDDE",
                     color: "white",
                     display: "flex",
                     flexDirection: "column",
@@ -128,6 +131,7 @@ const LeftContentSection = () => {
                       pl: "55px",
                       pb: "100px",
                       pr: "100px",
+                      color: theme.palette.primary.main,
                     }}
                   >
                     <Typography variant="body1">
@@ -142,7 +146,9 @@ const LeftContentSection = () => {
                       variant="h2"
                       fontWeight="bold"
                       pb={2}
-                      sx={{ textAlign: "center", mt: "65px" }}
+                      sx={{ textAlign: "center", mt: "65px", 
+                        color: theme.palette.primary.main,
+                      }}
                     >
                       Our Story
                     </Typography>
@@ -151,7 +157,7 @@ const LeftContentSection = () => {
                   <Box
                     className="cont-4"
                     sx={{
-                      backgroundColor: "#D8B46E",
+                     backgroundColor: "#FAF5EDDE",
                       color: "white",
                       display: "flex",
                       flexDirection: "column",
@@ -184,7 +190,7 @@ const LeftContentSection = () => {
                       sx={{
                         width: "100%",
                         zIndex: 3,
-                        backgroundColor: "#fff",
+                        backgroundColor: "white",
                         top: "90%",
                         mt: "-40%",
                         mr: "-70%",
@@ -192,6 +198,7 @@ const LeftContentSection = () => {
                         padding: "6%",
                         boxShadow: "0 3px 20px 0 rgba(0, 0, 0, .12)",
                         position: { md: "absolute" },
+                        color: theme.palette.primary.main,
                       }}
                     >
                       <Typography variant="body1">

@@ -14,6 +14,7 @@ import {
   Modal,
   IconButton,
   Stack,
+  useTheme,
 } from "@mui/material";
 import ProductOverview from "../../layoutsOfPages/ProductOverview.tsx";
 import CreateProduct from "./createProduct.tsx";
@@ -23,6 +24,60 @@ import LazyLoad from "react-lazyload";
 import { useNavigate } from "react-router-dom";
 
 const ManageProduct: React.FC = () => {
+  const theme = useTheme();
+
+  // Styles
+  const modalStyle = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "70%",
+    bgcolor: "background.paper",
+    boxShadow: 24,
+    p: 4,
+    borderRadius: theme.shape.borderRadius,
+    maxHeight: "85vh",
+    overflowY: "auto",
+  };
+
+  const addToCartStyle = {
+    ...modalStyle,
+    width: 700,
+  };
+
+  const cellStyle = {
+    textAlign: "center",
+    verticalAlign: "middle",
+    padding: "16px",
+    color: theme.palette.primary.dark,
+  };
+
+  const textCell = {
+    fontSize: "13px",
+    maxWidth: 120,
+    overflow: "hidden",
+    whiteSpace: "nowrap",
+    textOverflow: "ellipsis",
+  };
+
+  const actionCell = {
+    display: "flex",
+    flexDirection: "column",
+    gap: 0.5,
+    justifyContent: "center",
+    alignItems: "center",
+    minWidth: 80,
+  };
+
+  const buttonStyle = {
+    fontSize: "11px",
+    padding: "4px 8px",
+    borderRadius: theme.shape.borderRadius,
+    textTransform: "none",
+    width: "80px",
+  };
+
   const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -134,10 +189,18 @@ const ManageProduct: React.FC = () => {
       <Typography variant="h4" gutterBottom>
         Manage Products
       </Typography>
-
-      <Button variant="contained" onClick={handleOpen} sx={{ mb: 2 }}>
+      
+      <Box sx = {{display: "flex", flexDirection: "row", gap: 3}}>
+        <Button variant="contained" onClick={handleOpen} sx={{ mb: 2 }}>
         Create New Product
       </Button>
+
+       <Button sx={{ mb: 2 }} onClick={handleNavigate}>Set Banner Image/Video</Button>
+
+       <Button sx={{ mb: 2 }}  onClick={handleCategorySec}>Category Section</Button>
+
+      </Box>
+      
       <Modal open={open} onClose={handleClose}>
         <Box sx={modalStyle}>
           <CreateProduct
@@ -147,23 +210,6 @@ const ManageProduct: React.FC = () => {
         </Box>
       </Modal>
 
-      <Button onClick={handleNavigate}>Set Banner Image/Video</Button>
-
-      {/* <Modal open={bannerOpen} onClose={handleBannerClose}>
-        <Box sx={modalStyle}>
-          <BannerImage onClose={handleBannerClose} />
-        </Box>
-      </Modal> */}
-
-      <Button onClick={handleCategorySec}>Category Section</Button>
-
-      {/* <Button onClick={handleCategoryOpen}>Category Section</Button>
-     
-      <Modal open={categorySectionOpen} onClose={handleCategoryClose}>
-        <Box sx={modalStyle}>
-          <CreateCategorySection onClose={handleCategoryClose} />
-        </Box>
-      </Modal> */}
 
       <TableContainer
         component={Paper}
@@ -304,9 +350,7 @@ const ManageProduct: React.FC = () => {
                       textTransform: "none",
                       transition: "all 0.2s",
                       "&:hover": {
-                        backgroundColor: "#e3f2fd",
-                        borderColor: "#2196f3",
-                        color: "#2196f3",
+                        backgroundColor: theme.palette.primary.dark,
                       },
                     }}
                   >
@@ -324,9 +368,9 @@ const ManageProduct: React.FC = () => {
                       textTransform: "none",
                       boxShadow: "none",
                       transition: "all 0.2s",
+                      backgroundColor: theme.palette.error.dark,
                       "&:hover": {
-                        backgroundColor: "#d32f2f",
-                        boxShadow: "0 2px 6px rgba(0,0,0,0.15)",
+                        backgroundColor: theme.palette.error.dark,
                       },
                     }}
                   >
@@ -377,54 +421,3 @@ const ManageProduct: React.FC = () => {
 };
 
 export default ManageProduct;
-
-// Styles
-const modalStyle = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "70%",
-  bgcolor: "background.paper",
-  boxShadow: 24,
-  p: 4,
-  borderRadius: 3,
-  maxHeight: "85vh",
-  overflowY: "auto",
-};
-
-const addToCartStyle = {
-  ...modalStyle,
-  width: 700,
-};
-
-const cellStyle = {
-  textAlign: "center",
-  verticalAlign: "middle",
-  padding: "16px",
-};
-
-const textCell = {
-  fontSize: "13px",
-  maxWidth: 120,
-  overflow: "hidden",
-  whiteSpace: "nowrap",
-  textOverflow: "ellipsis",
-};
-
-const actionCell = {
-  display: "flex",
-  flexDirection: "column",
-  gap: 0.5,
-  justifyContent: "center",
-  alignItems: "center",
-  minWidth: 80,
-};
-
-const buttonStyle = {
-  fontSize: "11px",
-  padding: "4px 8px",
-  borderRadius: "6px",
-  textTransform: "none",
-  width: "80px",
-};

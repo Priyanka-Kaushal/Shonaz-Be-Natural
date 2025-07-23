@@ -1,6 +1,6 @@
 import React from "react";
 import { jwtDecode } from "jwt-decode";
-import axios from "../utils/axios"; // make sure this is correctly configured
+import axios from "../utils/axios"; 
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { GoogleLogin, CredentialResponse } from "@react-oauth/google";
@@ -28,7 +28,7 @@ const SignUpWithGoogle = () => {
       localStorage.setItem("auth_token", appToken);
 
       toast.success("Login successful!");
-      navigate("/shop/new-arrivals");
+      navigate("/");
     } catch (error: any) {
       console.error("Google login error:", error);
       toast.error(error.message || "Google Login failed.");
@@ -36,7 +36,7 @@ const SignUpWithGoogle = () => {
   };
 
   return (
-    <div style={{ marginTop: "1rem", textAlign: "center" }}>
+    <div style={{ marginTop: "16px", marginBottom: "16px", textAlign: "center" }}>
          <GoogleLogin
             onSuccess={handleGoogleSuccess}
             onError={() => toast.error("Google login failed")}

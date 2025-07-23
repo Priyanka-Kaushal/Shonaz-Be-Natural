@@ -9,7 +9,6 @@ import CartPage from './layoutsOfPages/CartPage.tsx';
 import FooterComponent from "./Home/Footer";
 import HomePage from "./Home/Home.js";
 import ForgotPassword from './auth/ForgotPassword';
-// import NewArrivals from './collections/newArrival.tsx';
 import SearchPage from './Layouts/SearchPage';
 import CreateProducts from "./components/adminAccess/createProduct.tsx";
 import ProductOverview from './layoutsOfPages/ProductOverview.tsx';
@@ -19,7 +18,7 @@ import VerifyUser from  "./auth/emailVerify.tsx";
 import FilterSort from './Layouts/FilterAndSorting.tsx';
 import Unauthorized from './components/auth/Unauthorized.tsx';
 import ProtectedRoute from './components/auth/ProtectedRoutes.tsx';
-import AccountPage from "./Layouts/useraccount.js";
+import CheckoutForm from "./Layouts/useraccount.js";
 import ManageProductItems from "./components/adminAccess/manageProduct.tsx"
 
 
@@ -52,18 +51,23 @@ function App() {
           <Box sx={{ flex: 1 }}>
             <Routes>
               <Route path="/" element={<HomePage />} />
-            
-              {/* <Route path="/shop/new-arrivals" element={<NewArrivals />} /> */}
               <Route path="/account/login" element={<LoginUser />} />
               <Route path="/account/register" element={<CreateAccount />} />
               <Route path="/verifyEmail" element={<VerifyUser />} />
               <Route path="/account/forgotPassword" element={<ForgotPassword />} />
-              <Route path="/product-Overview" element={<ProductOverview />} />
+
+
+
+             <Route path="/product/:id" element={<ProductOverview />} />
+
               <Route path="/view-cart" element={<CartPage />} />
+
            <Route path="/collection" element={<ProductsPage />} />
+
               {/* <Route path="/products-single" element={<ProductCard />} /> */}
+             
               <Route path="/FilterSort" element={<FilterSort />} />
-              <Route path="/account-details" element={<AccountPage />} />
+              <Route path="/checkout-form" element={<CheckoutForm />} />
               <Route path="/Privacy-Policy" element={<PrivacyPolicy />} />
                <Route path="/Shipping-Deliveries-Policy" element={<ShippingDeliveriesPolicy />} />
                <Route path="/Terms-Of-Service" element= {<TermsOfService/>} />

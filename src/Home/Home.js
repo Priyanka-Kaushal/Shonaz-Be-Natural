@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import BannerImage from "../Assets/Images/BannerImage.jpg";
 import CardMedia from "@mui/material/CardMedia";
-import { Box, Typography, Modal } from "@mui/material";
+import { Box, Typography, Modal, useTheme, Paper, Link } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Gallery from "../collections/Gallery.js";
 import IntroductionPage from "../Home/IntroductionPage.js";
@@ -15,6 +15,7 @@ import { lazy } from "react";
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const theme = useTheme();
 
   const [bannerUrl, setBannerUrl] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -50,7 +51,7 @@ const HomePage = () => {
   return (
     <>
       <Box sx={{ paddingTop: 0, marginTop: 0, marginBottom: "10%" }}>
-        <section className="BannerImage">
+        <section className="BannerImage" style={{ position: "relative" }}>
           {bannerUrl ? (
             bannerUrl.endsWith(".mp4") || bannerUrl.includes("video") ? (
               <CardMedia
@@ -84,6 +85,55 @@ const HomePage = () => {
               sx={{ width: "100%", height: "auto", objectFit: "cover" }}
             />
           )}
+
+          <Paper
+            elevation={6}
+            sx={{
+              p: 3,
+              position: "absolute",
+              zIndex: 2,
+              bottom: "-50px",
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: { xs: "90%", sm: "70%", md: "50%" },
+              bgcolor: "white",
+              textAlign: "center",
+            }}
+          >
+            <Box sx={{ color: theme.palette.primary.main }}>
+              <Typography variant="h1" gutterBottom>
+                <Typography
+                  component="span"
+                  variant="h1"
+                  gutterBottom
+                  sx={{ textDecoration: "underline", display: "inline", mr: 1 }}
+                >
+                  Shonaz
+                </Typography>
+                Be Natural
+              </Typography>
+              <Typography variant="h4" gutterBottom sx={{ mb: 5 }}>
+                Where comfort meets consciousness in fashion. Tiny trends, Big
+                impact.
+              </Typography>
+
+              <Link
+                onClick={() => navigate("/collection")}
+                variant="h6"
+                sx={{
+                  textDecoration: "underline",
+                  fontWeight: "bold",
+                  cursor: "pointer",
+                  "&:hover": {
+                    color: theme.palette.primary.dark,
+                    textDecoration: "none",
+                  },
+                }}
+              >
+                What we offer
+              </Link>
+            </Box>
+          </Paper>
         </section>
 
         <section>
@@ -92,7 +142,8 @@ const HomePage = () => {
             sx={{
               fontSize: { xs: "1rem", sm: "1.5rem", md: "2rem" },
               textAlign: "center",
-              margin: "20px 0",
+              margin: "100px 0",
+              color: theme.palette.primary.main,
             }}
           >
             SHOP NEW IN
@@ -133,6 +184,7 @@ const HomePage = () => {
             letterSpacing="1px"
             mt={4}
             mb={2}
+            sx={{ color: theme.palette.primary.main }}
           >
             Discover the Organic Cotton & Eco-Friendly Prints
           </Typography>
@@ -146,8 +198,8 @@ const HomePage = () => {
             Clothing made with safe dyes and sustainable materials — good for
             the planet and gentle on your child's skin.
           </Typography>
-          {/* 
-          <Box sx={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: 2 }}>
+
+          {/* <Box sx={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: 2 }}>
             {newArrivals.map((product) => (
               <ProductCard key={product._id} product={product} onClick={() => handlePreviewOpen(product)} />
             ))}
@@ -174,7 +226,7 @@ const HomePage = () => {
             bgcolor: "background.paper",
             boxShadow: 24,
             p: 4,
-            borderRadius: 2,
+            borderRadius: theme.shape,
           }}
         >
           {selectedProduct && (

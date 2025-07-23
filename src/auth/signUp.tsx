@@ -6,6 +6,8 @@ import {
   Button,
   Stack,
   Container,
+  useTheme,
+  Link
 } from "@mui/material";
 import axios from "../utils/axios";
 import { toast } from "react-hot-toast";
@@ -21,6 +23,8 @@ interface CreateAccountForm {
 }
 
 const CreateAccount: React.FC = () => {
+  const theme = useTheme();
+
   const [formData, setFormData] = useState<CreateAccountForm>({
     first_name: "",
     last_name: "",
@@ -67,10 +71,19 @@ const CreateAccount: React.FC = () => {
   return (
     <Container maxWidth="sm">
       {loading && <FullscreenLoader />}
-      <Box mt={5} p={4} boxShadow={3} borderRadius={2}>
-        <Typography variant="h4" gutterBottom textAlign="center">
+      <Box
+        sx={{
+          mt: 10,
+          p: 4,
+          boxShadow: theme.shadows[1],
+          borderRadius: theme.shape.borderRadius,
+          background: theme.palette.primary.contrastText,
+        }}
+      >
+        <Typography variant="h1" textAlign="center">
           Create Account
         </Typography>
+
         <form onSubmit={handleSubmit}>
           <Stack spacing={2}>
             <TextField
@@ -114,27 +127,57 @@ const CreateAccount: React.FC = () => {
               type="submit"
               fullWidth
               disabled={loading}
-              sx={{mb: 1}}
+              sx={{
+                mb: 1,
+                borderRadius: theme.shape.borderRadius,
+                backgroundColor: theme.palette.primary.main,
+                color: theme.palette.primary.contrastText,
+                fontWeight: theme.typography.button.fontWeight,
+                textTransform: theme.typography.button.textTransform,
+                letterSpacing: theme.typography.button.letterSpacing,
+                boxShadow: theme.shadows[2],
+                "&:hover": {
+                  backgroundColor: theme.palette.primary.dark,
+                  boxShadow: theme.shadows[4],
+                },
+                "&:disabled": {
+                  backgroundColor: theme.palette.action.disabledBackground,
+                  color: theme.palette.action.disabled,
+                },
+              }}
             >
               {loading ? "Creating..." : "Sign Up"}
             </Button>
           </Stack>
         </form>
+
+        <Typography
+          variant="body2"
+          textAlign="center"
+          sx={{ color: theme.palette.primary.dark, mt: 2 }}
+        >
+          or
+        </Typography>
+        <SignUpWithGoogle />
+
+
+        <Link
+              href="/account/login"
+              underline="hover"
+              sx={{
+                 mt: 2 ,
+                color: theme.palette.primary.dark,
+                "&:hover": {
+                  color: theme.palette.primary.dark,
+                },
+              }}
+            >
+              Cancel
+            </Link>
         
-         <Typography
-                  variant="body2"
-                  textAlign="center"
-                  sx={{ color: "#555", mt: 2}}
-                >
-                  or
-                </Typography>
-         <SignUpWithGoogle />
       </Box>
-     
     </Container>
   );
 };
 
 export default CreateAccount;
-
-

@@ -1,70 +1,98 @@
-import React from "react";
-import { Box, Typography, TextField, Button, Link } from "@mui/material";
+import {
+  Box,
+  Typography,
+  TextField,
+  Button,
+  Link,
+  useTheme,
+  Container,
+} from "@mui/material";
 import { useState } from "react";
 
 const FogrgotPassword = () => {
+  const theme = useTheme();
   const [email, setEmail] = useState();
 
   const handleOnEmail = (e) => {
     setEmail(e.target.value);
   };
 
-
   const handleOnSubmit = (e) => {
     e.preventDefault();
-}
+  };
   return (
-    <>
+    <Container maxWidth="sm">
       <Box
         sx={{
-            marginTop: "50px",
-            marginBottom: "50px",
+          mt: 10,
+          p: 4,
+          boxShadow: theme.shadows[1],
+           borderRadius: theme.shape.borderRadius,
+          background: theme.palette.primary.contrastText,
         }}
+
       >
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            maxWidth: "400px",
-            margin: "auto",
-            padding: "20px",
-            boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.1)",
-            borderRadius: "8px",
-          }}
-        >
-          <Typography variant="h4" sx={{ mb: 2 }}>
-            Reset your password
-          </Typography>
-          <Typography  sx={{ mb: 2 }}> We will send you an email to reset your password. </Typography>
-          <TextField
-            label="Email"
-            variant="outlined"
-            fullWidth
-            sx={{ mb: 2 }}
-            value={email}
-            onChange={handleOnEmail}
-          />
-          <Button
-            variant="contained"
-            color="primary"
-            fullWidth
-            sx={{
-              mb: 2,
-              backgroundColor: "#000",
-              ":hover": { backgroundColor: "#333" },
-            }}
-            onClick={handleOnSubmit}
-          >
-            SUBMIT
-          </Button>
-          <Link href="/account/login" underline="hover">
-            Cancel
-          </Link>
-        </Box>
+
+        <Typography variant="h1" sx={{ mb: 2, color: theme.palette.h4 }}>
+          Reset your password
+        </Typography>
+
+        <Typography sx={{ mb: 2, color: theme.palette.primary.dark }}>
+          We will send you an email to reset your password.
+        </Typography>
+        <TextField
+          label="Email"
+          variant="outlined"
+          fullWidth
+          sx={{ mb: 2 }}
+          value={email}
+          onChange={handleOnEmail}
+        />
+        <Button
+  variant="contained"
+  color="primary"
+  fullWidth
+  sx={{
+    mb: 2,
+    borderRadius: theme.shape.borderRadius,
+    boxShadow: theme.shadows[2],
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.primary.contrastText,
+    fontWeight: theme.typography.button.fontWeight,
+    textTransform: theme.typography.button.textTransform,
+    letterSpacing: theme.typography.button.letterSpacing,
+    "&:hover": {
+      backgroundColor: theme.palette.primary.dark,
+      boxShadow: theme.shadows[4],
+    },
+  }}
+  onClick={handleOnSubmit}
+>
+  SUBMIT
+</Button>
+
+
+
+<Link
+      href="/account/login"
+      underline="hover"
+      sx={{
+        color: theme.palette.primary.dark,
+        "&:hover": {
+          color: theme.palette.primary.dark,
+        },
+      }}
+    >
+      Cancel
+    </Link>
+
+
+        {/* <Link href="/account/login" underline="hover"
+        sx= {{hover: theme.palette.primary.dark}}>
+          Cancel
+        </Link> */}
       </Box>
-    </>
+    </Container>
   );
 };
 

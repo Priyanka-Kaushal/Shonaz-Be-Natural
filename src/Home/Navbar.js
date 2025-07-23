@@ -10,10 +10,12 @@ import {
   IconButton,
   CardMedia,
   useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import BannerImage from "../Assets/Images/weed2.jpg";
+import logo from "../Assets/Images/mainlogo.png";
 import SearchPage from "../Layouts/SearchPage";
 
 const Navbar = () => {
@@ -22,6 +24,7 @@ const Navbar = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
   const [openDrawer, setOpenDrawer] = useState({ left: false, right: false });
   const [drawerType, setDrawerType] = useState(null);
+  const theme = useTheme();
 
   const navigate = useNavigate();
 
@@ -52,11 +55,11 @@ const Navbar = () => {
     <Box
       className="leftDrawerMenu rightdrawerCheckOut"
       sx={{
-        width: 400,
+        width: 500,
         textAlign: "center",
         padding: "60px 0",
         height: "100%",
-        backgroundColor: "rgba(255,255,255,0.8)",
+        backgroundColor: theme.palette.background.default,
         backdropFilter: "blur(6px)",
         zIndex: 900,
         display: "flex",
@@ -71,13 +74,19 @@ const Navbar = () => {
     >
       {anchor === "right" ? (
         <>
-          <Typography sx={{ mb: 1, fontWeight: "bold" }}>
+          <Typography
+            sx={{
+              mb: 1,
+              fontWeight: "bold",
+              color: theme.palette.primary.main,
+            }}
+          >
             Your Cart Is Empty
           </Typography>
           <Button
             variant="contained"
             sx={{
-              backgroundColor: "black",
+              backgroundColor: theme.palette.primary.dark,
               color: "white",
               paddingX: 3,
               "&:hover": {
@@ -94,23 +103,82 @@ const Navbar = () => {
           {drawerType === "shop" && (
             <>
               <Link to="/collection/indian-western" style={linkStyle}>
-                Indian Western Wear
+              <Typography
+   variant="h6"
+    sx={{
+      color: theme.palette.primary.main,
+      fontWeight: 600,
+      '&:hover': {
+        color: theme.palette.primary.dark,
+        textDecoration: 'underline',
+      },
+    }}
+  >
+                 Indian Western Wear
+              </Typography>
+                
               </Link>
               <Link to="/collection/sleepwear" style={linkStyle}>
-                Sleepwear
+                <Typography
+    variant="h6"
+    sx={{
+      color: theme.palette.primary.main,
+      fontWeight: 600,
+      '&:hover': {
+        color: theme.palette.primary.dark,
+        textDecoration: 'underline',
+      },
+    }}
+  >
+                 sleepwear
+              </Typography>
               </Link>
 
               <Link to="/collection/ethnic-wear" style={linkStyle}>
+              <Typography
+     variant="h6"
+    sx={{
+      color: theme.palette.primary.main,
+      fontWeight: 600,
+      '&:hover': {
+        color: theme.palette.primary.dark,
+        textDecoration: 'underline',
+      },
+    }}
+  >
                 Ethnic Wear
+              </Typography>
               </Link>
-              <Link to="/collectionsleepwear" style={linkStyle}>
-                Sleepwear
-              </Link>
+
               <Link to="/collection/accessories" style={linkStyle}>
-                Accessories
+               <Typography
+variant="h6"
+    sx={{
+      color: theme.palette.primary.main,
+      fontWeight: 600,
+      '&:hover': {
+        color: theme.palette.primary.dark,
+        textDecoration: 'underline',
+      },
+    }}
+  >
+                 accessories
+              </Typography>
               </Link>
               <Link to="/collection/popular-products" style={linkStyle}>
-                Popular Products
+                <Typography
+   variant="h6"
+    sx={{
+      color: theme.palette.primary.main,
+      fontWeight: 600,
+      '&:hover': {
+        color: theme.palette.primary.dark,
+        textDecoration: 'underline',
+      },
+    }}
+  >
+                 Popular dresses
+              </Typography>
               </Link>
 
               <Box
@@ -137,12 +205,34 @@ const Navbar = () => {
           )}
           {drawerType === "new" && (
             <Link to="/collection/new-arrivals" style={linkStyle}>
-              New - Arrivals
+              <Typography
+    variant="h6"
+    sx={{
+      color: theme.palette.primary.main,
+      fontWeight: 600,
+      '&:hover': {
+        color: theme.palette.primary.dark,
+        textDecoration: 'underline',
+      },
+    }}
+  >  New - Arrivals </Typography>
+             
             </Link>
           )}
           {drawerType === "collection" && (
-            <Link to="/collection/collection" style={linkStyle}>
-              Collection
+            <Link to="/collection" style={linkStyle}>
+              <Typography
+    variant="h6"
+    sx={{
+      color: theme.palette.primary.main,
+      fontWeight: 600,
+      '&:hover': {
+        color: theme.palette.primary.dark,
+        textDecoration: 'underline',
+      },
+    }}
+  >  Collection </Typography>
+             
             </Link>
           )}
         </>
@@ -158,9 +248,10 @@ const Navbar = () => {
       <Link to="/collection/new-arrivals" style={linkStyle}>
         NEW
       </Link>
-      <Link to="collection/collection" style={linkStyle}>
-        COLLECTION
-      </Link>
+      <Link to="/collection" style={linkStyle}>
+  Collection
+</Link>
+
     </Box>
   );
 
@@ -168,10 +259,24 @@ const Navbar = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
         position="fixed"
-        sx={{ backgroundColor: "white", boxShadow: "none", zIndex: 1201 }}
+        elevation={0}
+        sx={{
+          width: "100%",
+          bgcolor: "#f5f5f5",
+          backdropFilter: "blur(10px)",
+          WebkitBackdropFilter: "blur(10px)",
+          borderBottom: "1px solid rgba(0,0,0,0.1)",
+          zIndex: theme.zIndex.appBar,
+        }}
       >
         <Toolbar sx={{ justifyContent: "space-between" }}>
-          <Box sx={{ display: { xs: "none", md: "flex" }, gap: 2 }}>
+          <Box
+            sx={{
+              display: { xs: "none", md: "flex" },
+              gap: 2,
+              color: theme.palette.primary.main,
+            }}
+          >
             <Link
               onClick={toggleDrawer("left", true, "shop")}
               style={headerLink}
@@ -200,16 +305,19 @@ const Navbar = () => {
           </IconButton>
 
           <Box>
-            <Link
-              to="/"
-              style={{
-                textDecoration: "none",
-                fontWeight: "bold",
-                color: "black",
-                fontSize: "20px",
-              }}
-            >
-              SHONAZ BE NATURAL
+            <Link to="/" style={{ textDecoration: "none" }}>
+              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                <CardMedia
+                  component="img"
+                  image={logo}
+                  sx={{
+                    width: "800px",
+                    height: "70px",
+                    objectFit: "contain",
+                  }}
+                  alt="Shonaz Logo"
+                />
+              </Box>
             </Link>
           </Box>
 
@@ -296,3 +404,179 @@ const linkStyle = {
   textDecoration: "none",
   color: "black",
 };
+
+// import React, { useState } from "react";
+// import {
+//   AppBar,
+//   Toolbar,
+//   IconButton,
+//   Typography,
+//   Box,
+//   Button,
+//   Drawer,
+//   List,
+//   ListItem,
+//   ListItemText,
+//   CardMedia,
+//   useMediaQuery,
+// } from "@mui/material";
+// import MenuIcon from "@mui/icons-material/Menu";
+// import CloseIcon from "@mui/icons-material/Close";
+// import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+// import { useTheme } from "@mui/material/styles";
+// import BannerImage from "../Assets/Images/weed2.jpg";
+// import logo from "../Assets/Images/mainlogo.png";
+
+// const Navbar = () => {
+//   const theme = useTheme();
+//   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+//   const [drawerState, setDrawerState] = useState({
+//     left: false,
+//   });
+
+//   const toggleDrawer = (anchor, open, page = "") => (event) => {
+//     if (
+//       event.type === "keydown" &&
+//       (event.key === "Tab" || event.key === "Shift")
+//     ) {
+//       return;
+//     }
+//     setDrawerState({ ...drawerState, [anchor]: open });
+//   };
+
+//   const drawerList = (
+//     <Box
+//       sx={{
+//         width: 250,
+//         pt: 2,
+//         px: 2,
+//         bgcolor: theme.palette.background.default,
+//         height: "100%",
+//       }}
+//       role="presentation"
+//       onClick={toggleDrawer("left", false)}
+//       onKeyDown={toggleDrawer("left", false)}
+//     >
+//       <Box display="flex" justifyContent="space-between" alignItems="center">
+//         <Typography
+//           variant="h6"
+//           sx={{ color: theme.palette.primary.main, fontWeight: "bold" }}
+//         >
+//           Menu
+//         </Typography>
+//         <IconButton onClick={toggleDrawer("left", false)}>
+//           <CloseIcon />
+//         </IconButton>
+//       </Box>
+//       <List>
+//         {["Home", "Shop", "About", "Contact"].map((text) => (
+//           <ListItem button key={text}>
+//             <ListItemText
+//               primary={text}
+//               sx={{ color: theme.palette.text.primary }}
+//             />
+//           </ListItem>
+//         ))}
+//       </List>
+//     </Box>
+//   );
+
+//   return (
+//     <AppBar
+//       position="fixed"
+//       elevation={0}
+//       sx={{
+//         width: "100%",
+//         bgcolor: theme.palette.background.default,
+//         borderBottom: `1px solid ${theme.palette.divider}`,
+//         backdropFilter: "blur(10px)",
+//         zIndex: theme.zIndex.appBar,
+//       }}
+//     >
+//       <Toolbar
+//         sx={{
+//           justifyContent: "space-between",
+//           px: theme.spacing(3),
+//           py: theme.spacing(1),
+//         }}
+//       >
+
+//         <Box sx={{ display: "flex", alignItems: "center" }}>
+//           <CardMedia
+//             component="img"
+//             image={logo}
+//             alt="Logo"
+//             sx={{
+//               width: {
+//                 xs: "150px",
+//                 sm: "300px",
+//                 md: "500px",
+//                 lg: "600px",
+//               },
+//               height: "80px",
+//               objectFit: "contain",
+//             }}
+//           />
+//         </Box>
+
+//         {isMobile ? (
+//           <>
+//             <IconButton
+//               edge="start"
+//               color="inherit"
+//               onClick={toggleDrawer("left", true)}
+//             >
+//               <MenuIcon />
+//             </IconButton>
+//             <Drawer
+//               anchor="left"
+//               open={drawerState.left}
+//               onClose={toggleDrawer("left", false)}
+//             >
+//               {drawerList}
+//             </Drawer>
+//           </>
+//         ) : (
+//           <Box display="flex" alignItems="center" gap={3}>
+//             {["Home", "Shop", "About", "Contact"].map((text) => (
+//               <Typography
+//                 key={text}
+//                 sx={{
+//                   cursor: "pointer",
+//                   fontWeight: theme.typography.fontWeightMedium,
+//                   color: theme.palette.text.primary,
+//                   transition: "color 0.2s",
+//                   "&:hover": {
+//                     color: theme.palette.primary.main,
+//                   },
+//                 }}
+//               >
+//                 {text}
+//               </Typography>
+//             ))}
+//             <Button
+//               variant="contained"
+//               startIcon={<ShoppingCartIcon />}
+//               sx={{
+//                 bgcolor: theme.palette.primary.main,
+//                 color: theme.palette.common.white,
+//                 px: theme.spacing(2),
+//                 py: theme.spacing(1),
+//                 fontWeight: 600,
+//                 boxShadow: theme.shadows[3],
+//                 "&:hover": {
+//                   bgcolor: theme.palette.primary.dark,
+//                   boxShadow: theme.shadows[6],
+//                 },
+//               }}
+//             >
+//               Cart
+//             </Button>
+//           </Box>
+//         )}
+//       </Toolbar>
+//     </AppBar>
+//   );
+// };
+
+// export default Navbar;

@@ -149,7 +149,6 @@ const handleSubmit = async (e) => {
     }
 
     toast.success("Message sent to the owner successfully!");
-    // Optionally reset form or redirect
   } catch (error) {
     console.error("Error submitting contact form:", error.message);
     alert("Failed to send message. Please try again.");

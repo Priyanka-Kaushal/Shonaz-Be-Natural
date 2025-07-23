@@ -1,9 +1,14 @@
 import BannerImage from "../Assets/Images/BannerImage.jpg";
 
-import { Box, Typography, Button, Paper, CardMedia } from '@mui/material';
+import { Box, Typography, Button, Paper, CardMedia, useTheme } from '@mui/material';
 import { styled } from "@mui/system";
+import { useNavigate } from "react-router-dom";
 
 const WhatsNewSection = () => {
+   const theme = useTheme();
+   const navigate = useNavigate();
+
+
   const ImageContainer = styled(Box)(({ theme }) => ({
     position: "relative",
     width: "33%",
@@ -19,8 +24,12 @@ const WhatsNewSection = () => {
   return (
     <Box alignContent = "center" sx={{ p: 4, margin: "auto",
   width: "70%",
-  padding: "10px" }}>
-      <Typography variant="h4" fontWeight="bold" gutterBottom>
+  padding: "10px",
+  color: theme.palette.primary.main }}>
+     <Typography
+                  component="span"
+                  variant="h1" gutterBottom
+                >
         What’s New?
       </Typography>
 
@@ -40,7 +49,7 @@ const WhatsNewSection = () => {
             height: "100%",
             width: "100%",
             objectFit: "cover",
-            borderRadius: "8px",
+            borderRadius:theme.shape,
           }}
           image={BannerImage}
           alt="Product Image"
@@ -57,15 +66,20 @@ const WhatsNewSection = () => {
             top: "80%",      
             transform: "translateY(-50%)",
             width: "50%",
+            bgcolor: "white",
           }}
         >
-          <Typography variant="h6"  gutterBottom>
+
+          <Box sx = {{color: theme.palette.primary.main,}}>
+            <Typography variant="h3"  gutterBottom sx = {{mb: 3}}>
             Organic cotton with hand block prints
           </Typography>
-          <Typography variant="body1" gutterBottom>
+          <Typography variant="body1" gutterBottom sx = {{mb: 3}}>
             We’ve got a full selection of the latest styles for organic cotton fabric curated with traditional hand block printing!
           </Typography>
-          <Button variant="outlined">
+          </Box>
+          
+          <Button variant="contained" color="primary" onClick={() => navigate("/collection/indian-western")}>
             Shop Now
           </Button>
         </Paper>
